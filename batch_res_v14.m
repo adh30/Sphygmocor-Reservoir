@@ -1,5 +1,5 @@
-%% batch_res_v12 - batch analysis of radial pulse data using kreservoir_vXX 
-%% Copyright 2015 Alun Hughes with major contributions from Kim Parker
+%% batch_res_v14 - batch analysis of radial pulse data using kreservoir_v14 
+%% Copyright 2020 Alun Hughes & Kim Parker
 % This software is distributed under under the terms of the GNU General Public License
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -168,8 +168,10 @@ for file_number=1:no_of_files
     [dippks,diplocs,dipw]=findpeaks(di, 'NPeaks',2,'MinPeakHeight',minpeak); % find two dIpositive peaks
     [dimpks,dimlocs,dimw]=findpeaks(-di, 'NPeaks',1,'MinPeakHeight',0.7*max(-di)); % find one dIpositive peaks
     di=di*mmHgPa*length(dp);% units fixed - now in W/m2 per cycle^2
-    dippks=dippks*mmHgPa*length(dp);
-    dimpks=dimpks*mmHgPa*length(dp);
+%     dippks=dippks*mmHgPa*length(dp);
+%     dimpks=dimpks*mmHgPa*length(dp); // correct error
+    dippks=dippks*length(dp).^2;
+    dimpks=dimpks*length(dp).^2;
     dipt=diplocs/sampling_rate;
     dimt=dimlocs/sampling_rate;
     % calculate areas
