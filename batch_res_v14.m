@@ -1,4 +1,4 @@
-%% batch_res_v14 - batch analysis of radial pulse data using kreservoir_v14 
+%% batch_res_v14 - batch analysis of radial pulse data using kreservoir_v14
 %% Copyright 2020 Alun Hughes & Kim Parker
 % This software is distributed under under the terms of the GNU General Public License
 % This program is free software: you can redistribute it and/or modify
@@ -23,29 +23,29 @@
 %                  pre-allocated cell array, fixed plot problem where P and
 %                  Pr were used instead of p_av and Pr_av
 %  v0.9 (24/12/17) Added HRV estimates
-%  v1.0 (27/12/17) Added estimates of Pb Pf, a preliminary WIA 
-%                  and some additional tidying of code removing requirement 
+%  v1.0 (27/12/17) Added estimates of Pb Pf, a preliminary WIA
+%                  and some additional tidying of code removing requirement
 %                  for fsg1521, calls fitres_v4
 %  v1.1 (16/03/19) Estimated units for WIA
 %  v1.2 (29/03/19) Save additional data, minor bug fixes
 %  v1.3 (22/04/19) Added progress bar, replaced fsg721 with diff
 %  v1.31(04/05/19) Suppressed creating of wmf as it was causing a Java leak when large numbers of files were processed
-%  v1.4 (11/01/20) Perform HRV using a separate function, add an error trap in exponential fit, minor bug fixes 
-%%%%%%%%%%%%%%%% 
+%  v1.4 (11/01/20) Perform HRV using a separate function, add an error trap in exponential fit, minor bug fixes
+%%%%%%%%%%%%%%%%
 %% m files required to be in directory
 % fitres_v6.m
 % kreservoir_v14.m
 % hrv_v1.m
 %%%%%%%%%%%%%%%%
 %% Constants
-    sampling_rate=128;     % from sphygmocor (can be read as spdata{2,21}) 
+    sampling_rate=128;     % from sphygmocor (can be read as spdata{2,21})
                            % but its fixed so just impose as constant (i.e.
-                           % 128Hz (sample interval 7.8ms))
+                           % 128Hz (sample interval 7.8ms)) for now
     kres_v='v14';          % Version tracking for reservoir fitting
     headernumber=47;       % headers for columns of results (see end)
     mmHgPa = 133;          % P conversion for WIA
     uconst=1;              % empirical constant to convert normalized velocity to m/s
-   
+
 %%%%%%%%%%%%%%%%
 %% Select files
 % folder_name = uigetdir; % dropped for now as it slows the process
@@ -60,43 +60,43 @@ proc_var=cell(no_of_files,headernumber);
 
 %% Reservoir analysis for each filename
 for file_number=1:no_of_files
-    % refresh filename 
+    % refresh filename
     filename=file_lists(record_no).name;
     % read BP data from Sphygmocor file
       [periph_signal,central_signal,periph_pulse,central_pulse,...
           flow_waveform,forward_pulse,reflected_pulse] = textread...
           ([folder_name filename],'%f%f%f%f%f%f%f','headerlines',4);
-      
+
    % read other data from Sphygmocor file (there are 82 columns)
-      spdata(1,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t'); 
+      spdata(1,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t');
       spdata(2,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t', 'headerlines', 1);
 
     % detect Patient id if present
     id=spdata{2,8};
-      
+
     % open waitbar
     if record_no==1
         h = waitbar(record_no/no_of_files,'Processing files...');
     else
         waitbar(record_no/no_of_files,h,'Processing files...');
     end
-    
-    
+
+
     % call function to fit reservoir to radial data
-    [P_av, Pr_av,Pinf_av,Pn_av,Tn_av,Sn_av, fita_av, fitb_av,rsq_av]=fitres_v6(periph_pulse,sampling_rate);         
+    [P_av, Pr_av,Pinf_av,Pn_av,Tn_av,Sn_av, fita_av, fitb_av,rsq_av]=fitres_v6(periph_pulse,sampling_rate);
     % calculate mean arterial pressure from waveform
     map=str2double(spdata{2,32}); % data in file
     % duration of diastole
     Tdia=(length(P_av)-Sn_av)/sampling_rate;
 
-    
+
     % make times for plots
-    Time=1/sampling_rate*(0:(length(P_av)-1));    
+    Time=1/sampling_rate*(0:(length(P_av)-1));
     TimeR=1/sampling_rate*(0:(length(Pr_av)-1));  % added to allow for different lengths of p_av and Pr_av due to deletion of upturns
     T=1/sampling_rate*(0:(length(periph_pulse)-1));
-        
+
     % Make some calculations using the average data
-    P_less_dia=P_av-min(P_av); 
+    P_less_dia=P_av-min(P_av);
     Pr_less_dia=Pr_av-min(Pr_av);
     Pn_less_dia=Pn_av-min(P_av);
     Pxs=P_av-Pr_av;
@@ -104,12 +104,12 @@ for file_number=1:no_of_files
     % more filenames
     %csvname = regexprep(filename,'.txt','res.csv');    % for excel file - not being used
     %csvnamef = fullfile(folder_name,csvname);
-    id_2 = regexprep(filename,'.txt','');       
-    
-  
+    id_2 = regexprep(filename,'.txt','');
+
+
     %% make figures and data subfolders
     figfolder='C:\Spdata\figures\';
-    datafolder='C:\Spdata\results\'; 
+    datafolder='C:\Spdata\results\';
     if ~exist(figfolder, 'dir')
     mkdir(figfolder);
     end
@@ -121,14 +121,14 @@ for file_number=1:no_of_files
     replace1 = 'wmf';
     replace2 ='jpg';
     wmffile = regexprep(filename,expression,replace1);
-    jpgfile = regexprep(filename,expression,replace2);  
+    jpgfile = regexprep(filename,expression,replace2);
    %%%%%%%%%%%%%
 
-    
+
     %% perform reservoir analysis on central pressure waveform as a prelude to estimating Pb and Pf
       [cP_av,cPr_av,cPinf_av, cPn_av, cTn_av,cSn_av, cfita_av,...
         cfitb_av, crsq_av]=fitres_v6(central_pulse,sampling_rate);
-    
+
     % duration of diastole
     cTdia=(length(cP_av)-cSn_av)/sampling_rate;
 
@@ -139,7 +139,7 @@ for file_number=1:no_of_files
     cPf_av=cP_av-cPb_av-min(cP_av);
     Pb_Pf=max(cPb_av)/max(cPf_av);
     RI=max(cPb_av)/(max(cPf_av)+ max(cPb_av));
-    
+
     %% wave intensity analysis (currently only done on central P)
     % tweak the pressure waveforms cP_av and cPxs_Av for the derivatives to work
     cpwia = zeros(1,length(cP_av));
@@ -153,7 +153,7 @@ for file_number=1:no_of_files
     dp=diff(cpwia*mmHgPa);
     %dp=fsg721(cpwia*mmHgPa);
     %dp=sgolayfilt(cpwia*mmHgPa, 2,7);
-    
+
     % convert xwia to flow velocity and assume peak velocity = 1m/s
     % based on Lindroos, M., et al. J Am Coll Cardiol 1993; 21: 1220-1225.
 	% cuxwia=uconst*(cuxwia-min(cuxwia))/(max(cuxwia)-min(cuxwia));
@@ -185,57 +185,57 @@ for file_number=1:no_of_files
         dipt(2)=0;
         diparea(2)=0;
      end
-    
+
     % Estimate c (wavespeed) as k*dP/du where k is empirical constant
     % currently k = 1!
     rhoc=max(Pxs)*mmHgPa/1000; % fixed units (m/s)
     % more complex model to address non-constant bias ~ WORK IN PROGRESS
-    % TBA    
+    % TBA
     %% HRV
-    %% perform reservoir analysis on peripehral pressure waveform 
+    %% perform reservoir analysis on peripehral pressure waveform
       [P_all, sdsbp, nbeats, rr_ms,rrS_ms, sdnn_ms, ...
         sdnnS_ms, rmssd_ms, rmssdS_ms, brs_ms_mmhg,sysloc,dialoc]...
         =hrv_v1(periph_pulse,central_signal,sampling_rate);
-    
-    % perform reservoir analysis on central pressure waveform 
+
+    % perform reservoir analysis on central pressure waveform
       [cP_all, csdsbp, cnbeats, crr_ms,crrS_ms, csdnn_ms, ...
         csdnnS_ms, crmssd_ms, crmssdS_ms, cbrs_ms_mmhg,csysloc, cdialoc]...
         =hrv_v1(central_pulse,central_signal,sampling_rate);
-    
+
     %% prepare data for output
     % some calculations
     [max_p_av,max_tp_av]=max(P_av);
     [max_pr,max_tr]=max(Pr_av); % calculation
     [max_prld,max_trld]=max(Pr_less_dia); % calculation
     [max_pxs,max_txs]=max(Pxs); % calculation
-    
+
     % identify possible fitting errors
     if Pinf_av>min(P_av)|| Pinf_av<-10 || fitb_av<0
         problem=1;
     else
-        
+
         problem=0;
-    end      
+    end
 %% Print figures
     % Pressure and reservoir
     T=1/sampling_rate*(0:(length(P_all)-1));        % bit of a fudge since i dont know whether T is needed above but it messes up the plot so I've recalculated it.
     %clf
     f1=figure('visible','off');                     % dont display figure
-    subplot(1,2,1); hold on; 
-    plot(T,P_all);plot(sysloc/sampling_rate, P_all(sysloc),'ro'); plot(dialoc/sampling_rate, P_all(dialoc),'rs'); 
+    subplot(1,2,1); hold on;
+    plot(T,P_all);plot(sysloc/sampling_rate, P_all(sysloc),'ro'); plot(dialoc/sampling_rate, P_all(dialoc),'rs');
     xlabel('Time (s)')
     ylabel('BP (mmHg)')
     box off;
-    subplot(1,2,2); 
-    plot(Time,P_av,TimeR,Pr_av,'r', TimeR, Pxs,'k');  
+    subplot(1,2,2);
+    plot(Time,P_av,TimeR,Pr_av,'r', TimeR, Pxs,'k');
     xlabel('Time (s)')
     ylabel('BP (mmHg)')
     box off;
     % print ('-dmeta', '-r300' , [figfolder wmffile]);
     print ('-djpeg', '-r300' , [figfolder jpgfile]);
-    
+
     % WI
-      %clf                 
+      %clf
     f2=figure('visible','off');                     % dont display figure
     TimeDI=Time(1:length(di));
     plot (TimeDI, di);                              % **** to allow for new length
@@ -257,15 +257,15 @@ for file_number=1:no_of_files
     wmffile2 = regexprep(filename,'.txt','fb.wmf');
     jpgfile2 = regexprep(filename,'.txt','fb.jpg');
     % print ('-dmeta', '-r300' , [figfolder wmffile2]);
-    print ('-djpeg', '-r300' , [figfolder jpgfile2]);    
-  
+    print ('-djpeg', '-r300' , [figfolder jpgfile2]);
+
     % clear and close figures
     clear f1 f2 f3
     figs =  findobj('type','figure');
     close(figs);
     clear figs;
-    
-    % write variables 
+
+    % write variables
     proc_var{record_no,1}=filename;
     proc_var{record_no,2}=max_p_av;         % max P (SBP), mmHg
     proc_var{record_no,3}=max_tp_av/sampling_rate; % time max P (SBP), s
@@ -293,7 +293,7 @@ for file_number=1:no_of_files
     proc_var{record_no,25}=sdnn_ms;         % Standard deviation of NN intervals
     proc_var{record_no,26}=rrS_ms;          % RR interval from systole
     proc_var{record_no,27}=rmssdS_ms;       % Root mean square of successive RR intervals
-    proc_var{record_no,28}=sdnnS_ms;      % Standard deviation of NN intervals
+    proc_var{record_no,28}=sdnnS_ms;        % Standard deviation of NN intervals
     proc_var{record_no,29}=brs_ms_mmhg;     % Baroreceptor Sensitivity (sequence method)
     proc_var{record_no,30}=nbeats;          % number of cardiac cycles
     proc_var{record_no,31}=cbrs_ms_mmhg;    % central BRS
@@ -311,13 +311,13 @@ for file_number=1:no_of_files
     proc_var{record_no,43}=diparea(2);      % W2 area
     proc_var{record_no,44}=wri;             % WRI
     proc_var{record_no,45}=rhoc;            % rhoc
-    proc_var{record_no,46}=id;              % id    
+    proc_var{record_no,46}=id;              % id
     proc_var{record_no,47}=id_2;            % alternative id from filename - sometimes useful
-    
+
     % increment record number
     if record_no==no_of_files
        close(h)
-       clear h; 
+       clear h;
     else record_no=record_no+1;
     end
 end
@@ -342,4 +342,4 @@ msg=strcat(msg, " files processed");
 h1 = msgbox(msg, 'Done');
 clear h1
 %%%%%%%%%%%%%%%%%%%%
-%% END	
+%% END
