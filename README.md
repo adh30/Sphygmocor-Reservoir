@@ -35,7 +35,7 @@ Henceforth any new versions will be made available here.**
 
 # The script
 
-batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10 as listed above. An improved algorithm for fitting the reservoir in diastole has been used since kreservoir v13 -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters. The program assumes that the first element of the pressure P corresponds to the diastolic point in the arterial pressure waveform; i.e. the time of minimum P just before the rapid rise in P during early systole. Ignoring this condition (e.g. by taking the first element of P to be the pressure at the time of the peak in the R-wave of the ECG) is probably the most common error in the use of this program. 
+batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10 as listed above. An improved algorithm for fitting the reservoir in diastole has been used since kreservoir v13 -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters. The program assumes that the first element of the pressure P corresponds to the end diastolic pressure in the arterial pressure waveform; i.e. the time of minimum P just before the rapid rise in P during early systole. 
 
 # Using the script
 
