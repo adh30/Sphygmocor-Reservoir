@@ -1,7 +1,7 @@
 # Sphygmocor-reservoir
-Reservoir Analysis using a batch process for multiple Sphygmocor© files
+Reservoir Analysis using a matlab batch process for multiple Sphygmocor© files
 
-For background see *Alun Hughes, Kim Parker. The modified arterial reservoir: an update with consideration of asymptotic pressure (P∞) and zero-flow pressure (Pzf). Proceedings of the Institution of Mechanical Engineers, Part H: Journal of Engineering in Medicine in press.* https://doi.org/10.1177/0954411920917557
+For background see *Alun Hughes, Kim Parker. The modified arterial reservoir: an update with consideration of asymptotic pressure (P∞) and zero-flow pressure (Pzf). Proceedings of the Institution of Mechanical Engineers, Part H: Journal of Engineering in Medicine in press.* https://doi.org/10.1177/0954411920917557 and Kim Parker's website pages on Reservoir/excess pressure (http://www.bg.ic.ac.uk/research/k.parker/res_press_web/rp_home.html).
 
 I am grateful to my long-term colleague Prof. Kim Parker for his assistance with the development of this program. 
 
