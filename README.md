@@ -1,16 +1,17 @@
 # Sphygmocor-reservoir
-Reservoir analysis for Sphygmocor files (v14)[updated 11/01/2020]
+Reservoir analysis for Sphygmocor files (v14)
 
-NB A previous version of kreservoir (v13) may be available on Kim Parker's web page.
-Please note that version (v13) is now outdated and the current version (v14) should be used. 
-Henceforth any new versions will be made available here. 
+A previous version of kreservoir (v13) may be available on Kim Parker's web page.
+
+**Please note that version (kreservoir v13) is now outdated and the current version (kreservoirv 14) should be used. 
+Henceforth any new versions will be made available here.** 
 
 |     Version      |     Date     |    Changes Made                                                                                                                                                                                            | 
 |------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1.1              | 24/12/17 | Added information about program upgrade to kreservoir v9 that includes HRV                                                                                                                                        
 | 1.2              | 27/12/17 | Incorporated estimates of wave intensity, backward pressure (Pb) and forward pressure (Pf) from central pulse waveform and used sgolayfilt rather than fsg1521 or fsg721                                       
 | 1.21             | 22/10/18 | Minor updates to accompany a few bug fixes        (now kreservoir v11)                                                                                                                                                    
-| 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs (now v12)        
+| 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs (now kreservoir v12)        
 | 1.31             | 12/04/19 | Added progress bar, bug fix to figure output (now kreservoir v13)                                                                                                                                                          
 | 1.4              | 11/01/20 | Some restructuring of functions, minor bug fixes (now kreservoir v14)                                                                                                                                                      
 
@@ -76,19 +77,19 @@ C:\\Spdata\\results will contain an excel file (resdata.xls) which will contain 
 
 [NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
 
-The root mean square of successive differences (RMSSD), the standard deviation of the pulse intervals (SDNN) and baroreflex sensitivity (BRS) are calculated essentially according to Sluyter et al.[2],[a] The validity of such ultrashort recordings has been studied by Munoz et al.[3] Further details on the meaning and interpretation of these measures can be found in Shaffer and Ginsberg.[4] It is probably useful to normalise HRV (or adjust it statistically) to mean RR interval due to the correlation between HRV and resting heart rate.[5] This can be done as a post-processing step in the statistical package used.
+The root mean square of successive differences (RMSSD), the standard deviation of the pulse intervals (SDNN) and baroreflex sensitivity (BRS) are calculated essentially according to Sluyter et al.[2],<sup>[a]</sup> The validity of such ultrashort recordings has been studied by Munoz et al.[3] Further details on the meaning and interpretation of these measures can be found in Shaffer and Ginsberg.[4] It is probably useful to normalise HRV (or adjust it statistically) to mean RR interval due to the correlation between HRV and resting heart rate.[5] This can be done as a post-processing step in the statistical package used.
 
 # Wave intensity
 
 [NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
 
-If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dP~xs~*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated on the basis of the Waterhammer equation. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on data from ^6^) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation, but this remains to be tested.
+If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dP~xs~*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated on the basis of the Waterhammer equation. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on data from [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation, but this remains to be tested.
 
 # Backward and forward pressure 
 
 [NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
 
-These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (P~b~);[7] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[8] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[9] which uses a 3-element Windkessel assumption[b] to reconstruct forward and backward pressures.
+These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (P~b~);[7] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[8] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[9] which uses a 3-element Windkessel assumption<sup>[b]</sup> to reconstruct forward and backward pressures.
 
 # Data dictionary
 
@@ -113,7 +114,7 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 | re\_fita          | Rate constant systolic fit                                         | 10.45715136    | s^-1^       |
 | re\_fitb          | Rate constant diastolic fit                                        | 1.912785514    | s^-1^       |
 | re\_rsq           | Coefficient of determination (r^2^) for fit                        | 0.992749217    | No units    |
-| re\_prob          | Flag 1 for likely problem[c]                                       | 0              | No units    |
+| re\_prob          | Flag 1 for likely problem<sup>[c]</sup>                            | 0              | No units    |
 | re\_version       | kreservoir version (for version tracking                           | v13            | No units    |
 | re\_sdsbp\_mmhg   | Standard deviation of SBP                                          | 6.1            | mmHg        |
 | re\_rr\_interval  | Pulse to pulse (RR) interval                                       | 900            | Ms          |
@@ -123,17 +124,19 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 | re\_brs\_valid    | Number of valid BRS measures                                       | 8              | Count       |
 | re\_pb\_pf        | Central Pb/Pf                                                      | 0.65           | No units    |
 | re\_ri            | Central Reflection index                                           | .4             | No units    |
-| re\_wf1i          | Intensity of forward compression wave 1 (W1)                       |                | W/m2        |
+| re\_wf1i          | Intensity of forward compression wave 1 (W1)                       |                | W/m2*       |
 | re\_wf1t          | Time of peak of forward compression wave 1 (W1)                    |                | s           |
-| re\_wf1a          | Area of forward compression wave 1 (W1)                            |                | J/m^2^      |
-| re\_wfbi          | Intensity of backward compression wave (Wb)                        |                | W/m^2^      |
+| re\_wf1a          | Area of forward compression wave 1 (W1)                            |                | J/m^2^*     |
+| re\_wfbi          | Intensity of backward compression wave (Wb)                        |                | W/m^2^*     |
 | re\_wbt           | Time of peak of backward compression wave (Wb)                     |                | s           |
-| re\_wba           | Area of backward compression wave (Wb)                             |                | J/m^2^      |
-| re\_wf2i          | Intensity of forward compression wave 2 (W2)                       |                | W/m^2^      |
+| re\_wba           | Area of backward compression wave (Wb)                             |                | J/m^2^*     |
+| re\_wf2i          | Intensity of forward compression wave 2 (W2)                       |                | W/m^2^*     |
 | re\_wf2t          | Time of peak of forward compression wave 2 (W2)                    |                | s           |
-| re\_wf2a          | Area of forward compression wave 2 (W2)                            |                | J/m^2^      |
+| re\_wf2a          | Area of forward compression wave 2 (W2)                            |                | J/m^2^*     |
 | wri               | Wave reflection index                                              |                | No units    |
 | rhoc              | Wave speed                                                         |                | m/s         |
+
+* if calibrated.
 
 # References
 
@@ -149,8 +152,8 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 
 # Footnotes
 
-a: since Sphygmocor data is cropped at the foot of the waveform peak systole has been used as the fiducial point of the waveform to calculate beat to beat intervals.
+<sup>[a]</sup>: since Sphygmocor data is cropped at the foot of the waveform peak systole has been used as the fiducial point of the waveform to calculate beat to beat intervals.
 
-b: the details of the procedure used by ARCSOLVER are not in the public domain
+<sup>[b]</sup>: the details of the procedure used by ARCSOLVER are not in the public domain
 
-c: 0 = ok; 1 = Pinf \> diastolic pressure; 2 = rate constant b \< 0; 3 = time of maximum reservoir pressure \> end of systole
+<sup>[c]</sup>: 0 = ok; 1 = Pinf \> diastolic pressure; 2 = rate constant b \< 0; 3 = time of maximum reservoir pressure \> end of systole
