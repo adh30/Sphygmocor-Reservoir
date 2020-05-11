@@ -39,7 +39,7 @@ Put sphygmocor files to be analysed in the analysis directory
 C:\\Spdata
 
 Open matlab and ensure that the working directory is the one that contains the relevant script and function files (in my case this is
-C:\\XXX\\Matlab\\work\\Reservoir\_batch
+C:\\XXX\\Matlab\\work\\Reservoir\_batch).
 
 Type into command line:
 
