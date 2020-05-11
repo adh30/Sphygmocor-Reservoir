@@ -1,19 +1,19 @@
 # Sphygmocor-reservoir
 Reservoir analysis for Sphygmocor files (v14)[updated 11/01/2020]
 
-NB A previous version (v13) may be available on Kim Parker's web page.
-Please note that version (v13) is now outdated and the current version here (v14) should be used. 
+NB A previous version of kreservoir (v13) may be available on Kim Parker's web page.
+Please note that version (v13) is now outdated and the current version (v14) should be used. 
 Henceforth any new versions will be made available here. 
 
-| Amendment Record |          |                                                                                                                                                                                                                |                 |
-|------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
-| Version number   | Date     | Changes Made                                                                                                                                                                                                   | Changes made by |
-| 1.1              | 24/12/17 | Added information about program upgrade to v9 that includes HRV                                                                                                                                                | ADH             |
-| 1.2              | 27/12/17 | Incorporated estimates of wave intensity, backward pressure (Pb) and forward pressure (Pf) from central pulse waveform and used sgolayfilt rather than fsg1521 or fsg721                                       | ADH             |
-| 1.21             | 22/10/18 | Minor updates to accompany a few bug fixes        (now v11)                                                                                                                                                    | ADH             |
-| 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs (now v12)        | ADH             |
-| 1.31             | 12/04/19 | Added progress bar, bug fix to figure output (now v13)                                                                                                                                                          | ADH             |
-| 1.4              | 11/01/20 | Some restructuring of functions, minor bug fixes (now v14)                                                                                                                                                      | ADH             |
+| Amendment Record |          |                                                                                                                                                                                                                | 
+|------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Version number   | Date     | Changes Made                                                                                                                                                                                                   
+| 1.1              | 24/12/17 | Added information about program upgrade to kreservoir v9 that includes HRV                                                                                                                                        
+| 1.2              | 27/12/17 | Incorporated estimates of wave intensity, backward pressure (Pb) and forward pressure (Pf) from central pulse waveform and used sgolayfilt rather than fsg1521 or fsg721                                       
+| 1.21             | 22/10/18 | Minor updates to accompany a few bug fixes        (now kreservoir v11)                                                                                                                                                    
+| 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs (now v12)        
+| 1.31             | 12/04/19 | Added progress bar, bug fix to figure output (now kreservoir v13)                                                                                                                                                          
+| 1.4              | 11/01/20 | Some restructuring of functions, minor bug fixes (now kreservoir v14)                                                                                                                                                      
 
 # Contents
 
@@ -35,7 +35,7 @@ Henceforth any new versions will be made available here.
 
 # The script
 
-batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10 as listed above. An improved algorithm for fitting the reservoir in diastole has been used -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters. The program assumes that the first element of the pressure P corresponds to the diastolic point in the arterial pressure waveform; i.e. the time of minimum P just before the rapid rise in P during early systole. Ignoring this condition (e.g. by taking the first element of P to be the pressure at the time of the peak in the R-wave of the ECG) is probably the most common error in the use of this program. 
+batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10 as listed above. An improved algorithm for fitting the reservoir in diastole has been used since kreservoir v13 -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters. The program assumes that the first element of the pressure P corresponds to the diastolic point in the arterial pressure waveform; i.e. the time of minimum P just before the rapid rise in P during early systole. Ignoring this condition (e.g. by taking the first element of P to be the pressure at the time of the peak in the R-wave of the ECG) is probably the most common error in the use of this program. 
 
 # Using the script
 
