@@ -1,6 +1,11 @@
 # Sphygmocor-reservoir
 Reservoir analysis for Sphygmocor files
-Alun Hughes, University College London, (11/01/2020)
+
+updated 11/01/2020.
+
+Alun Hughes, 
+
+University College London 
 
 | Amendment Record |          |                                                                                                                                                                                                                |                 |
 |------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
@@ -30,7 +35,7 @@ Alun Hughes, University College London, (11/01/2020)
 
 # The script
 
-batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor © derived files. A few minor changes have been made since v10. An improved algorithm for fitting the reservoir in diastole has been used -- this excludes upstrokes at the end of diastole from the fit (largely due to the next beat?). This results in lower values for P∞ and slightly different values for other reservoir parameters.
+batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10. An improved algorithm for fitting the reservoir in diastole has been used -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters.
 
 # Using the script
 
@@ -71,7 +76,7 @@ C:\\Spdata\\results will contain an excel file (resdata.xls) which will contain 
 
 [NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
 
-The root mean square of successive differences (RMSSD), the standard deviation of the pulse intervals (SDNN) and baroreflex sensitivity (BRS) are calculated essentially according to Sluyter et al.^2^[^1] The validity of such ultrashort recordings has been studied by Munoz et al.[3] Further details on the meaning and interpretation of these measures can be found in Shaffer and Ginsberg.^4^ It is probably useful to normalise HRV (or adjust it statistically) to mean RR interval due to the correlation between HRV and resting heart rate.^5^ This can be done as a post-processing step in the statistical package used.
+The root mean square of successive differences (RMSSD), the standard deviation of the pulse intervals (SDNN) and baroreflex sensitivity (BRS) are calculated essentially according to Sluyter et al.[2],[a] The validity of such ultrashort recordings has been studied by Munoz et al.[3] Further details on the meaning and interpretation of these measures can be found in Shaffer and Ginsberg.[4] It is probably useful to normalise HRV (or adjust it statistically) to mean RR interval due to the correlation between HRV and resting heart rate.[5] This can be done as a post-processing step in the statistical package used.
 
 # Wave intensity
 
@@ -83,7 +88,7 @@ If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow v
 
 [NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
 
-These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (P~b~);^7^ which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,^8^ and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,^9^ which uses a 3-element Windkessel assumption[^2] to reconstruct forward and backward pressures.
+These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (P~b~);[7] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[8] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[9] which uses a 3-element Windkessel assumption[b] to reconstruct forward and backward pressures.
 
 # Data dictionary
 
@@ -142,8 +147,10 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 8. Wang J, Jr., O\'Brien AB, Shrive NG, Parker KH, Tyberg JV. Time-domain representation of ventricular-arterial coupling as a windkessel and wave system. *Am J Physiol Heart Circ Physiol* 2003; **284**(4): H1358\--68.
 9. Hametner B, Wassertheurer S, Kropf J, et al. Wave reflection quantification based on pressure waveforms alone\--methods, comparison, and clinical covariates. *Comput Meth Prog Bio* 2013; **109**(3): 250-9.
 
-[^1]: since Sphygmocor data is cropped at the foot of the waveform peak systole has been used as the fiducial point of the waveform to calculate beat to beat intervals.
+Footnotes
 
-[^2]: the details of the procedure used by ARCSOLVER are not in the public domain due to commercial considerations
+a: since Sphygmocor data is cropped at the foot of the waveform peak systole has been used as the fiducial point of the waveform to calculate beat to beat intervals.
 
-[^3]: 0 = ok; 1 = Pinf \> diastolic pressure; 2 = rate constant b \< 0; 3 = time of maximum reservoir pressure \> end of systole
+b: the details of the procedure used by ARCSOLVER are not in the public domain
+
+c: 0 = ok; 1 = Pinf \> diastolic pressure; 2 = rate constant b \< 0; 3 = time of maximum reservoir pressure \> end of systole
