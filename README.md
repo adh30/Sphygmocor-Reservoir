@@ -89,7 +89,7 @@ If it is assumed that excess pressure (*Pxs*) is proportional to aortic flow vel
 
 **[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
-These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (P~b~);[7] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[8] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[9] which uses a 3-element Windkessel assumption<sup>[b]</sup> to reconstruct forward and backward pressures.
+These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (Pb);[7] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[8] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[9] which uses a 3-element Windkessel assumption<sup>[b]</sup> to reconstruct forward and backward pressures.
 
 ## Data dictionary
 
