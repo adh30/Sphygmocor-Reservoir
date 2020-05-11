@@ -19,21 +19,21 @@ University College London
 
 # Contents
 
-[The script 3](#the-script)
+[The script](#the-script)
 
-[Using the script 3](#using-the-script)
+[Using the script](#using-the-script)
 
-[Heart rate variability (HRV) and baroreceptor sensitivity measures 5](#heart-rate-variability-hrv-and-baroreceptor-sensitivity-measures)
+[Heart rate variability (HRV) and baroreceptor sensitivity measures](#heart-rate-variability-hrv-and-baroreceptor-sensitivity-measures)
 
-[Wave intensity 6](#wave-intensity)
+[Wave intensity](#wave-intensity)
 
-[Backward and forward pressure 6](#backward-and-forward-pressure)
+[Backward and forward pressure](#backward-and-forward-pressure)
 
-[Data dictionary 7](#data-dictionary)
+[Data dictionary](#data-dictionary)
 
-[References 8](#references)
+[References](#references)
 
-[Footnotes 9](#footnotes)
+[Footnotes](#footnotes)
 
 # The script
 
