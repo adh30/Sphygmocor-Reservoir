@@ -83,7 +83,7 @@ The root mean square of successive differences (RMSSD), the standard deviation o
 
 **[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
-If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dP~xs~*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation.
+If it is assumed that excess pressure (*Pxs*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dPxs*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation.
 
 ## Backward and forward pressure 
 
