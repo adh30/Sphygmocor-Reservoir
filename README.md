@@ -33,6 +33,8 @@ University College London
 
 [References 8](#references)
 
+[Footnotes 9](#footnotes)
+
 # The script
 
 batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10. An improved algorithm for fitting the reservoir in diastole has been used -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters.
@@ -148,7 +150,7 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 8. Wang J, Jr., O\'Brien AB, Shrive NG, Parker KH, Tyberg JV. Time-domain representation of ventricular-arterial coupling as a windkessel and wave system. *Am J Physiol Heart Circ Physiol* 2003; **284**(4): H1358\--68.
 9. Hametner B, Wassertheurer S, Kropf J, et al. Wave reflection quantification based on pressure waveforms alone\--methods, comparison, and clinical covariates. *Comput Meth Prog Bio* 2013; **109**(3): 250-9.
 
-Footnotes
+# Footnotes
 
 a: since Sphygmocor data is cropped at the foot of the waveform peak systole has been used as the fiducial point of the waveform to calculate beat to beat intervals.
 
