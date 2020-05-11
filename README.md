@@ -117,9 +117,9 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 | re\_prob          | Flag 1 for likely problem<sup>[c]</sup>                            | 0              | No units    |
 | re\_version       | kreservoir version (for version tracking                           | v13            | No units    |
 | re\_sdsbp\_mmhg   | Standard deviation of SBP                                          | 6.1            | mmHg        |
-| re\_rr\_interval  | Pulse to pulse (RR) interval                                       | 900            | Ms          |
-| re\_rmssd         | Root mean square of differences in successive pulse (RR) intervals | 10             | Ms          |
-| re\_ssdn          | Standard deviation of pulse intervals                              | 6              | Ms          |
+| re\_rr\_interval  | Pulse to pulse (RR) interval                                       | 900            | ms          |
+| re\_rmssd         | Root mean square of differences in successive pulse (RR) intervals | 10             | ms          |
+| re\_ssdn          | Standard deviation of pulse intervals                              | 6              | ms          |
 | re\_brs           | Baroreflex sensitivity (BRS) by the sequence method                | 22             | ms.mmHg<sup>-1</sup> |
 | re\_brs\_valid    | Number of valid BRS measures                                       | 8              | Count       |
 | re\_pb\_pf        | Central Pb/Pf                                                      | 0.65           | No units    |
