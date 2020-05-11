@@ -75,15 +75,15 @@ C:\\Spdata\\results will contain an excel file (resdata.xls) which will contain 
 
 # Heart rate variability (HRV) and baroreceptor sensitivity measures
 
-[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
+**[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
 The root mean square of successive differences (RMSSD), the standard deviation of the pulse intervals (SDNN) and baroreflex sensitivity (BRS) are calculated essentially according to Sluyter et al.[2],<sup>[a]</sup> The validity of such ultrashort recordings has been studied by Munoz et al.[3] Further details on the meaning and interpretation of these measures can be found in Shaffer and Ginsberg.[4] It is probably useful to normalise HRV (or adjust it statistically) to mean RR interval due to the correlation between HRV and resting heart rate.[5] This can be done as a post-processing step in the statistical package used.
 
 # Wave intensity
 
-[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
+**[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
-If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dP~xs~*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated on the basis of the Waterhammer equation. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on data from [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation, but this remains to be tested.
+If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dP~xs~*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on data from [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation, but this remains to be tested.
 
 # Backward and forward pressure 
 
@@ -145,7 +145,7 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 3. Munoz ML, van Roon A, Riese H, et al. Validity of (Ultra-)Short Recordings for Heart Rate Variability Measurements. *PLoS One* 2015; **10**(9): e0138921.
 4. Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. *Front Public Health* 2017; **5**: 258.
 5. van Roon AM, Snieder H, Lefrandt JD, de Geus EJ, Riese H. Parsimonious Correction of Heart Rate Variability for Its Dependency on Heart Rate. *Hypertension* 2016; **68**(5): e63-e5.
-6. Lindroos M, Kupari M, Heikkila J, Tilvis R. Prevalence of aortic valve abnormalities in the elderly: an echocardiographic study of a random population sample. *J Am Coll Cardiol* 1993; **21**(5): 1220-5.
+6. Hughes AD, Park C, Ramakrishnan A, Mayet J, Chaturvedi N and Parker KH. Feasibility of Estimation of Aortic Wave Intensity Using Non-invasive Pressure Recordings in the Absence of Flow Velocity in Man. *Front Physiol* 2020; **11**:550. doi: 10.3389/fphys.2020.00550
 7. Westerhof N, Westerhof BE. The reservoir wave paradigm discussion. *J Hypertens* 2015; **33**(3): 458-60.
 8. Wang J, Jr., O\'Brien AB, Shrive NG, Parker KH, Tyberg JV. Time-domain representation of ventricular-arterial coupling as a windkessel and wave system. *Am J Physiol Heart Circ Physiol* 2003; **284**(4): H1358\--68.
 9. Hametner B, Wassertheurer S, Kropf J, et al. Wave reflection quantification based on pressure waveforms alone\--methods, comparison, and clinical covariates. *Comput Meth Prog Bio* 2013; **109**(3): 250-9.
