@@ -5,9 +5,9 @@ NB A previous version of kreservoir (v13) may be available on Kim Parker's web p
 Please note that version (v13) is now outdated and the current version (v14) should be used. 
 Henceforth any new versions will be made available here. 
 
-| Amendment Record |          |                                                                                                                                                                                                                | 
+|                                                  | |                                                                                                                                                                                          | 
 |------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Version number   | Date     | Changes Made                                                                                                                                                                                                   
+| Version          | Date     | Changes Made                                                                                                                                                                                                   
 | 1.1              | 24/12/17 | Added information about program upgrade to kreservoir v9 that includes HRV                                                                                                                                        
 | 1.2              | 27/12/17 | Incorporated estimates of wave intensity, backward pressure (Pb) and forward pressure (Pf) from central pulse waveform and used sgolayfilt rather than fsg1521 or fsg721                                       
 | 1.21             | 22/10/18 | Minor updates to accompany a few bug fixes        (now kreservoir v11)                                                                                                                                                    
