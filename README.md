@@ -1,7 +1,8 @@
 # Sphygmocor-reservoir
 Reservoir analysis for Sphygmocor files (v14)[updated 11/01/2020]
-A previous version (v13) has been available on Kim Parker's web page.
-This version (v13) is now outdated and the current version (v14) should be used. 
+
+NB A previous version (v13) may be available on Kim Parker's web page.
+Please note that version (v13) is now outdated and the current version here (v14) should be used. 
 Henceforth any new versions will be made available here. 
 
 | Amendment Record |          |                                                                                                                                                                                                                |                 |
