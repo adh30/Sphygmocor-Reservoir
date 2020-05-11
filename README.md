@@ -11,11 +11,11 @@ University College London
 |------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
 | Version number   | Date     | Changes Made                                                                                                                                                                                                   | Changes made by |
 | 1.1              | 24/12/17 | Added information about program upgrade to v9 that includes HRV                                                                                                                                                | ADH             |
-| 1.2              | 27/12/17 | Incorporated estimates of wave intensity, backward pressure (P~b~) and forward pressure (P~f~) from central pulse waveform and used sgolayfilt rather than fsg1521 or fsg721                                   | ADH             |
+| 1.2              | 27/12/17 | Incorporated estimates of wave intensity, backward pressure (Pb) and forward pressure (Pf) from central pulse waveform and used sgolayfilt rather than fsg1521 or fsg721                                       | ADH             |
 | 1.21             | 22/10/18 | Minor updates to accompany a few bug fixes in v10 (now v11)                                                                                                                                                    | ADH             |
 | 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs in v11 (now v12) | ADH             |
 | 1.31             | 12/04/19 | Added progress bar (now v13), bug fix to figure output.                                                                                                                                                        | ADH             |
-| 1.4              | 11/01/20 | Restructuring of functions, minor bug fixes                                                                                                                                                                    | ADH             |
+| 1.4              | 11/01/20 | Restructuring of functions, minor bug fixes (now v14)                                                                                                                                                          | ADH             |
 
 # Contents
 
@@ -68,7 +68,8 @@ In findpeaks (line 147)
 
 In batch\_res\_v13 (line 161)
 
-\- this can safely be ignored, as it indicates that there was no measurable reflection (which is possible).
+\- this can safely be ignored, as it indicates that there was no measurable reflection (which is possible). This will be fixed in a 
+later update
 
 C:\\Spdata\\results will contain an excel file (resdata.xls) which will contain all the data for each file with its ID. This can then be imported into Stata (or some other stats program) for further analysis.
 
@@ -108,12 +109,12 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 | re\_maxxsp        | Maximum excess pressure                                            | 26.3460721     | mmHg        |
 | re\_tmaxxsp       | Time of maximum excess pressure                                    | 0.109375       | s           |
 | re\_tn            | Time of maximum -dp/dt (nominal end of systole)                    | 0.283007813    | s           |
-| re\_pinf          | P~infinity~                                                        | 70.70521706    | mmHg        |
+| re\_pinf          | P∞                                                                 | 70.70521706    | mmHg        |
 | re\_pn            | Pressure at start of diastole                                      | 110.95         | mmHg        |
 | re\_fita          | Rate constant systolic fit                                         | 10.45715136    | s^-1^       |
 | re\_fitb          | Rate constant diastolic fit                                        | 1.912785514    | s^-1^       |
 | re\_rsq           | Coefficient of determination (r^2^) for fit                        | 0.992749217    | No units    |
-| re\_prob          | Flag 1 for likely problem[^3]                                      | 0              | No units    |
+| re\_prob          | Flag 1 for likely problem[c]                                       | 0              | No units    |
 | re\_version       | kreservoir version (for version tracking                           | v13            | No units    |
 | re\_sdsbp\_mmhg   | Standard deviation of SBP                                          | 6.1            | mmHg        |
 | re\_rr\_interval  | Pulse to pulse (RR) interval                                       | 900            | Ms          |
