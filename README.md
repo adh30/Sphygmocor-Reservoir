@@ -1,7 +1,7 @@
 # Sphygmocor-reservoir
 Reservoir analysis for Sphygmocor files (v14)
 
-A previous version of kreservoir (v13) may be available on Kim Parker's web page.
+*A previous version of kreservoir (v13) may be available on Kim Parker's web page*
 
 **NB that version (kreservoir v13) is now outdated and the current version (kreservoirv 14) should be used. 
 Henceforth any new versions will be made available here.** 
