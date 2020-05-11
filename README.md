@@ -10,10 +10,10 @@ Henceforth any new versions will be made available here.
 | Version number   | Date     | Changes Made                                                                                                                                                                                                   | Changes made by |
 | 1.1              | 24/12/17 | Added information about program upgrade to v9 that includes HRV                                                                                                                                                | ADH             |
 | 1.2              | 27/12/17 | Incorporated estimates of wave intensity, backward pressure (Pb) and forward pressure (Pf) from central pulse waveform and used sgolayfilt rather than fsg1521 or fsg721                                       | ADH             |
-| 1.21             | 22/10/18 | Minor updates to accompany a few bug fixes in v10 (now v11)                                                                                                                                                    | ADH             |
-| 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs in v11 (now v12) | ADH             |
-| 1.31             | 12/04/19 | Added progress bar (now v13), bug fix to figure output.                                                                                                                                                        | ADH             |
-| 1.4              | 11/01/20 | Restructuring of functions, minor bug fixes (now v14)                                                                                                                                                          | ADH             |
+| 1.21             | 22/10/18 | Minor updates to accompany a few bug fixes        (now v11)                                                                                                                                                    | ADH             |
+| 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs (now v12)        | ADH             |
+| 1.31             | 12/04/19 | Added progress bar, bug fix to figure output (now v13)                                                                                                                                                          | ADH             |
+| 1.4              | 11/01/20 | Some restructuring of functions, minor bug fixes (now v14)                                                                                                                                                      | ADH             |
 
 # Contents
 
