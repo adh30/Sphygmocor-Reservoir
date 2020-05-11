@@ -1,10 +1,6 @@
 # Sphygmocor-reservoir
 Reservoir analysis for Sphygmocor files
-Alun Hughes, University College London
-
-Manual Version 1.4
-
-(11/01/2020)
+Alun Hughes, University College London, (11/01/2020)
 
 | Amendment Record |          |                                                                                                                                                                                                                |                 |
 |------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
@@ -34,7 +30,7 @@ Manual Version 1.4
 
 # The script
 
-batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.^1^ for Sphygmocor © derived files. A few minor changes have been made since v10. An improved algorithm for fitting the reservoir in diastole has been used -- this excludes upstrokes at the end of diastole from the fit (largely due to the next beat?). This results in lower values for P~∞~ and slightly different values for other reservoir parameters.
+batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor © derived files. A few minor changes have been made since v10. An improved algorithm for fitting the reservoir in diastole has been used -- this excludes upstrokes at the end of diastole from the fit (largely due to the next beat?). This results in lower values for P∞ and slightly different values for other reservoir parameters.
 
 # Using the script
 
@@ -53,8 +49,6 @@ Type into command line:
 
 After some time (depending on how many files are analysed the run should complete, returning to command prompt. It will show a progress bar while it is running.
 
-![](media/image1.png){width="6.268055555555556in" height="3.5257808398950132in"}
-
 Two new folders should now exist in C:\\Spdata - C:\\Spdata\\figures and C:\\Spdata\\results.
 
 C:\\Spdata\\figures contains figures of the signal (all the uncalibrated data) and the pulse (the calibrated ensemble averaged data) with the reservoir pressure shown. These are saved as \*.jpg and \*.wmf files (the latter being useful for import into Microsoft Word and PowerPoint).These plots are useful for checking quality and any dubious results.
@@ -71,17 +65,13 @@ In batch\_res\_v13 (line 161)
 
 \- this can safely be ignored, as it indicates that there was no measurable reflection (which is possible).
 
-![](media/image2.wmf){width="6.268055555555556in" height="4.7034722222222225in"}
-
-*Example of the figure saved by batch\_res\_v10 -- this is similar in v14*
-
 C:\\Spdata\\results will contain an excel file (resdata.xls) which will contain all the data for each file with its ID. This can then be imported into Stata (or some other stats program) for further analysis.
 
 # Heart rate variability (HRV) and baroreceptor sensitivity measures
 
 [NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
 
-The root mean square of successive differences (RMSSD), the standard deviation of the pulse intervals (SDNN) and baroreflex sensitivity (BRS) are calculated essentially according to Sluyter et al.^2^[^1] The validity of such ultrashort recordings has been studied by Munoz et al.^3^ Further details on the meaning and interpretation of these measures can be found in Shaffer and Ginsberg.^4^ It is probably useful to normalise HRV (or adjust it statistically) to mean RR interval due to the correlation between HRV and resting heart rate.^5^ This can be done as a post-processing step in the statistical package used.
+The root mean square of successive differences (RMSSD), the standard deviation of the pulse intervals (SDNN) and baroreflex sensitivity (BRS) are calculated essentially according to Sluyter et al.^2^[^1] The validity of such ultrashort recordings has been studied by Munoz et al.[3] Further details on the meaning and interpretation of these measures can be found in Shaffer and Ginsberg.^4^ It is probably useful to normalise HRV (or adjust it statistically) to mean RR interval due to the correlation between HRV and resting heart rate.^5^ This can be done as a post-processing step in the statistical package used.
 
 # Wave intensity
 
@@ -142,7 +132,15 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 
 # References
 
-1\. Davies JE, Lacy P, Tillin T, et al. Excess pressure integral predicts cardiovascular events independent of other risk factors in the conduit artery functional evaluation substudy of Anglo-Scandinavian Cardiac Outcomes Trial. *Hypertension* 2014; **64**(1): 60-8.2. Sluyter JD, Hughes AD, Camargo CA, Jr., Lowe A, Scragg RKR. Relations of Demographic and Clinical Factors With Cardiovascular Autonomic Function in a Population-Based Study: An Assessment By Quantile Regression. *Am J Hypertens* 2017; **31**(1): 53-62.3. Munoz ML, van Roon A, Riese H, et al. Validity of (Ultra-)Short Recordings for Heart Rate Variability Measurements. *PLoS One* 2015; **10**(9): e0138921.4. Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. *Front Public Health* 2017; **5**: 258.5. van Roon AM, Snieder H, Lefrandt JD, de Geus EJ, Riese H. Parsimonious Correction of Heart Rate Variability for Its Dependency on Heart Rate. *Hypertension* 2016; **68**(5): e63-e5.6. Lindroos M, Kupari M, Heikkila J, Tilvis R. Prevalence of aortic valve abnormalities in the elderly: an echocardiographic study of a random population sample. *J Am Coll Cardiol* 1993; **21**(5): 1220-5.7. Westerhof N, Westerhof BE. The reservoir wave paradigm discussion. *J Hypertens* 2015; **33**(3): 458-60.8. Wang J, Jr., O\'Brien AB, Shrive NG, Parker KH, Tyberg JV. Time-domain representation of ventricular-arterial coupling as a windkessel and wave system. *Am J Physiol Heart Circ Physiol* 2003; **284**(4): H1358\--68.9. Hametner B, Wassertheurer S, Kropf J, et al. Wave reflection quantification based on pressure waveforms alone\--methods, comparison, and clinical covariates. *Comput Meth Prog Bio* 2013; **109**(3): 250-9.
+1. Davies JE, Lacy P, Tillin T, et al. Excess pressure integral predicts cardiovascular events independent of other risk factors in the conduit artery functional evaluation substudy of Anglo-Scandinavian Cardiac Outcomes Trial. *Hypertension* 2014; **64**(1): 60-8.
+2. Sluyter JD, Hughes AD, Camargo CA, Jr., Lowe A, Scragg RKR. Relations of Demographic and Clinical Factors With Cardiovascular Autonomic Function in a Population-Based Study: An Assessment By Quantile Regression. *Am J Hypertens* 2017; **31**(1): 53-62.
+3. Munoz ML, van Roon A, Riese H, et al. Validity of (Ultra-)Short Recordings for Heart Rate Variability Measurements. *PLoS One* 2015; **10**(9): e0138921.
+4. Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. *Front Public Health* 2017; **5**: 258.
+5. van Roon AM, Snieder H, Lefrandt JD, de Geus EJ, Riese H. Parsimonious Correction of Heart Rate Variability for Its Dependency on Heart Rate. *Hypertension* 2016; **68**(5): e63-e5.
+6. Lindroos M, Kupari M, Heikkila J, Tilvis R. Prevalence of aortic valve abnormalities in the elderly: an echocardiographic study of a random population sample. *J Am Coll Cardiol* 1993; **21**(5): 1220-5.
+7. Westerhof N, Westerhof BE. The reservoir wave paradigm discussion. *J Hypertens* 2015; **33**(3): 458-60.
+8. Wang J, Jr., O\'Brien AB, Shrive NG, Parker KH, Tyberg JV. Time-domain representation of ventricular-arterial coupling as a windkessel and wave system. *Am J Physiol Heart Circ Physiol* 2003; **284**(4): H1358\--68.
+9. Hametner B, Wassertheurer S, Kropf J, et al. Wave reflection quantification based on pressure waveforms alone\--methods, comparison, and clinical covariates. *Comput Meth Prog Bio* 2013; **109**(3): 250-9.
 
 [^1]: since Sphygmocor data is cropped at the foot of the waveform peak systole has been used as the fiducial point of the waveform to calculate beat to beat intervals.
 
