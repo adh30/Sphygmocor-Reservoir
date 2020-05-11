@@ -1,5 +1,5 @@
 # Sphygmocor-reservoir
-Reservoir analysis for Sphygmocor files (v14)
+Batch Reservoir analysis for multiple Sphygmocor files (v14) 
 
 *A previous version of kreservoir (v13) may be available on Kim Parker's web page*
 
