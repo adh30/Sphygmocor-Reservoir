@@ -111,8 +111,8 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 | re\_tn            | Time of maximum -dp/dt (nominal end of systole)                    | 0.283007813    | s           |
 | re\_pinf          | P∞                                                                 | 70.70521706    | mmHg        |
 | re\_pn            | Pressure at start of diastole                                      | 110.95         | mmHg        |
-| re\_fita          | Rate constant systolic fit                                         | 10.45715136    | s^-1^       |
-| re\_fitb          | Rate constant diastolic fit                                        | 1.912785514    | s^-1^       |
+| re\_fita          | Rate constant systolic fit                                         | 10.45715136    | s<sup>-1</sup>  |
+| re\_fitb          | Rate constant diastolic fit                                        | 1.912785514    | s<sup>-1</sup>  |
 | re\_rsq           | Coefficient of determination (r^2^) for fit                        | 0.992749217    | No units    |
 | re\_prob          | Flag 1 for likely problem<sup>[c]</sup>                            | 0              | No units    |
 | re\_version       | kreservoir version (for version tracking                           | v13            | No units    |
@@ -120,23 +120,23 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 | re\_rr\_interval  | Pulse to pulse (RR) interval                                       | 900            | Ms          |
 | re\_rmssd         | Root mean square of differences in successive pulse (RR) intervals | 10             | Ms          |
 | re\_ssdn          | Standard deviation of pulse intervals                              | 6              | Ms          |
-| re\_brs           | Baroreflex sensitivity (BRS) by the sequence method                | 22             | ms.mmHg^-1^ |
+| re\_brs           | Baroreflex sensitivity (BRS) by the sequence method                | 22             | ms.mmHg<sup>-1</sup> |
 | re\_brs\_valid    | Number of valid BRS measures                                       | 8              | Count       |
 | re\_pb\_pf        | Central Pb/Pf                                                      | 0.65           | No units    |
 | re\_ri            | Central Reflection index                                           | .4             | No units    |
 | re\_wf1i          | Intensity of forward compression wave 1 (W1)                       |                | W/m2*       |
 | re\_wf1t          | Time of peak of forward compression wave 1 (W1)                    |                | s           |
-| re\_wf1a          | Area of forward compression wave 1 (W1)                            |                | J/m^2^*     |
-| re\_wfbi          | Intensity of backward compression wave (Wb)                        |                | W/m^2^*     |
+| re\_wf1a          | Area of forward compression wave 1 (W1)                            |                | J/m<sup>2</sup>*     |
+| re\_wfbi          | Intensity of backward compression wave (Wb)                        |                | W/m<sup>2</sup>*     |
 | re\_wbt           | Time of peak of backward compression wave (Wb)                     |                | s           |
-| re\_wba           | Area of backward compression wave (Wb)                             |                | J/m^2^*     |
-| re\_wf2i          | Intensity of forward compression wave 2 (W2)                       |                | W/m^2^*     |
+| re\_wba           | Area of backward compression wave (Wb)                             |                | J/m<sup>2</sup>*     |
+| re\_wf2i          | Intensity of forward compression wave 2 (W2)                       |                | W/m<sup>2</sup>*     |
 | re\_wf2t          | Time of peak of forward compression wave 2 (W2)                    |                | s           |
-| re\_wf2a          | Area of forward compression wave 2 (W2)                            |                | J/m^2^*     |
+| re\_wf2a          | Area of forward compression wave 2 (W2)                            |                | J/m<sup>2</sup>*     |
 | wri               | Wave reflection index                                              |                | No units    |
 | rhoc              | Wave speed                                                         |                | m/s         |
 
-* if calibrated.
+&ast; if calibrated.
 
 # References
 
