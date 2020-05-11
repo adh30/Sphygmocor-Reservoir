@@ -1,12 +1,11 @@
 # Sphygmocor-reservoir
-Batch Reservoir analysis for multiple Sphygmocor files (v14).  
+Batch Reservoir analysis for multiple Sphygmocor files 
+
+For background see *Alun Hughes, Kim Parker. The modified arterial reservoir: an update with consideration of asymptotic pressure (P∞) and zero-flow pressure (Pzf). Proceedings of the Institution of Mechanical Engineers, Part H: Journal of Engineering in Medicine doi: 10.1177/0954411920917557*
 
 I am grateful to my long-term colleague Prof. Kim Parker for his assistance with the development of this program. 
 
-*A previous version of kreservoir (v13) may be available on Kim Parker's web page*
-
-**NB that old version (kreservoir v13) is now outdated and the current version (kreservoirv 14) should be used. 
-Henceforth any new versions will be made available here.** 
+*A previous version of kreservoir (v13) may be available on Kim Parker's web page.* **NB that old version (kreservoir v13) is now outdated and the current version (kreservoirv 14) should be used. Henceforth any new versions will be made available here.** 
 
 |     Version      |     Date     |    Changes Made                                                                                                                                                                                            | 
 |------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
