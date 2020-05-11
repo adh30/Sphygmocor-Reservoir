@@ -15,7 +15,7 @@ Henceforth any new versions will be made available here.**
 | 1.31             | 12/04/19 | Added progress bar, bug fix to figure output (now kreservoir v13)                                                                                                                                                          
 | 1.4              | 11/01/20 | Some restructuring of functions, minor bug fixes (now kreservoir v14)                                                                                                                                                      
 
-# Contents
+## Contents
 
 [The script](#the-script)
 
@@ -33,11 +33,11 @@ Henceforth any new versions will be made available here.**
 
 [Footnotes](#footnotes)
 
-# The script
+## The script
 
 batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10 as listed above. An improved algorithm for fitting the reservoir in diastole has been used since kreservoir v13 -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters. The program assumes that the first element of the pressure P corresponds to the end diastolic pressure in the arterial pressure waveform; i.e. the time of minimum P just before the rapid rise in P during early systole. 
 
-# Using the script
+## Using the script
 
 Put sphygmocor files to be analysed in the analysis directory
 
@@ -73,25 +73,25 @@ later update
 
 C:\\Spdata\\results will contain an excel file (resdata.xls) which will contain all the data for each file with its ID. This can then be imported into Stata (or some other stats program) for further analysis.
 
-# Heart rate variability (HRV) and baroreceptor sensitivity measures
+## Heart rate variability (HRV) and baroreceptor sensitivity measures
 
 **[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
 The root mean square of successive differences (RMSSD), the standard deviation of the pulse intervals (SDNN) and baroreflex sensitivity (BRS) are calculated essentially according to Sluyter et al.[2],<sup>[a]</sup> The validity of such ultrashort recordings has been studied by Munoz et al.[3] Further details on the meaning and interpretation of these measures can be found in Shaffer and Ginsberg.[4] It is probably useful to normalise HRV (or adjust it statistically) to mean RR interval due to the correlation between HRV and resting heart rate.[5] This can be done as a post-processing step in the statistical package used.
 
-# Wave intensity
+## Wave intensity
 
 **[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
 If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dP~xs~*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation.
 
-# Backward and forward pressure 
+## Backward and forward pressure 
 
 **[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
 These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (P~b~);[7] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[8] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[9] which uses a 3-element Windkessel assumption<sup>[b]</sup> to reconstruct forward and backward pressures.
 
-# Data dictionary
+## Data dictionary
 
 | Variable          | Definition                                                         | Example result | Units       |
 |-------------------|--------------------------------------------------------------------|----------------|-------------|
@@ -138,7 +138,7 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 
 &ast; if calibrated.
 
-# References
+## References
 
 1. Davies JE, Lacy P, Tillin T, et al. Excess pressure integral predicts cardiovascular events independent of other risk factors in the conduit artery functional evaluation substudy of Anglo-Scandinavian Cardiac Outcomes Trial. *Hypertension* 2014; **64**(1): 60-8.
 2. Sluyter JD, Hughes AD, Camargo CA, Jr., Lowe A, Scragg RKR. Relations of Demographic and Clinical Factors With Cardiovascular Autonomic Function in a Population-Based Study: An Assessment By Quantile Regression. *Am J Hypertens* 2017; **31**(1): 53-62.
@@ -150,7 +150,7 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 8. Wang J, Jr., O\'Brien AB, Shrive NG, Parker KH, Tyberg JV. Time-domain representation of ventricular-arterial coupling as a windkessel and wave system. *Am J Physiol Heart Circ Physiol* 2003; **284**(4): H1358\--68.
 9. Hametner B, Wassertheurer S, Kropf J, et al. Wave reflection quantification based on pressure waveforms alone\--methods, comparison, and clinical covariates. *Comput Meth Prog Bio* 2013; **109**(3): 250-9.
 
-# Footnotes
+## Footnotes
 
 <sup>[a]</sup>: since Sphygmocor data is cropped at the foot of the waveform peak systole has been used as the fiducial point of the waveform to calculate beat to beat intervals.
 
