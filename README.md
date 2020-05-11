@@ -83,11 +83,11 @@ The root mean square of successive differences (RMSSD), the standard deviation o
 
 **[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
-If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dP~xs~*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on data from [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation, but this remains to be tested.
+If it is assumed that excess pressure (*P~xs~*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dP~xs~*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation.
 
 # Backward and forward pressure 
 
-[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]{.underline}
+**[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
 These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (P~b~);[7] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[8] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[9] which uses a 3-element Windkessel assumption<sup>[b]</sup> to reconstruct forward and backward pressures.
 
