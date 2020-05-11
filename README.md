@@ -1,11 +1,8 @@
 # Sphygmocor-reservoir
-Reservoir analysis for Sphygmocor files
-
-updated 11/01/2020.
-
-Alun Hughes, 
-
-University College London 
+Reservoir analysis for Sphygmocor files (v14)[updated 11/01/2020]
+A previous version (v13) has been available on Kim Parker's web page.
+This version (v13) is now outdated and the current version (v14) should be used. 
+Henceforth any new versions will be made available here. 
 
 | Amendment Record |          |                                                                                                                                                                                                                |                 |
 |------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
@@ -37,7 +34,7 @@ University College London
 
 # The script
 
-batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10. An improved algorithm for fitting the reservoir in diastole has been used -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters.
+batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10 as listed above. An improved algorithm for fitting the reservoir in diastole has been used -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters. The program assumes that the first element of the pressure P corresponds to the diastolic point in the arterial pressure waveform; i.e. the time of minimum P just before the rapid rise in P during early systole. Ignoring this condition (e.g. by taking the first element of P to be the pressure at the time of the peak in the R-wave of the ECG) is probably the most common error in the use of this program. 
 
 # Using the script
 
