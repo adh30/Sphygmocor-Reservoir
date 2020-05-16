@@ -31,8 +31,8 @@
 %  v1.3 (22/04/19) Added progress bar, replaced fsg721 with diff
 %  v1.31(04/05/19) Suppressed creating of wmf as it was causing a Java leak when large numbers of files were processed
 %  v1.4 (11/01/20) Perform HRV using a separate function, add an error trap in exponential fit, minor bug fixes
-%  v1.41(11/05/20) More error traps, partially revised to use textscan 
-%                  rather than textread, improved peak detection for Wf2
+%  v1.41(11/05/20) More error traps, revised to use textscan rather than textread,
+%                  titles for figures, improved peak detection for Wf2
 %%%%%%%%%%%%%%%%
 %% m files required to be in directory
 % fitres_v6.m
