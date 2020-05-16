@@ -197,9 +197,9 @@ for file_number=1:no_of_files
     % its id
     [~,lsys]=min(dp);
     lsys=round(lsys);
-    [dippks(1),diplocs(1)]=findpeaks(di(1:lsys), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks
+    [dippks(1),diplocs(1), dipw(1)]=findpeaks(di(1:lsys), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks
     [dimpks,dimlocs,dimw]=findpeaks(-di(1:lsys), 'NPeaks',1,'MinPeakHeight',0.7*max(-di)); % find one dI- peaks
-    [dippks(2),diplocs(2)]=findpeaks(fliplr(di(1:lsys)), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks
+    [dippks(2),diplocs(2), dipw(2)]=findpeaks(fliplr(di(1:lsys)), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks
     diplocs(2)=lsys-diplocs(2);
     % check peaks 
 %     figure; hold on; plot(di); plot(diplocs(1),dippks(1),'ko'); 
