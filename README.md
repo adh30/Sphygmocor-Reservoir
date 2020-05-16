@@ -15,7 +15,7 @@ I am grateful to my long-term colleague Prof. Kim Parker for his assistance with
 | 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs (now kreservoir v12)        
 | 1.31             | 12/04/19 | Added progress bar, bug fix to figure output (now kreservoir v13)                                                                                                                                                          
 | 1.4              | 11/01/20 | Some restructuring of functions, minor bug fixes (now kreservoir v14)  
-| 1.41             | 11/05/20 | More error traps, revised to textscan rather than textread, titles for figures improved peak detection for Wf2      
+| 1.41             | 11/05/20 | More error traps, revised to use textscan rather than textread, titles for figures improved peak detection for Wf2      
 
 ## Contents
 
