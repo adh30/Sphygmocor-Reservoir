@@ -31,6 +31,8 @@
 %  v1.3 (22/04/19) Added progress bar, replaced fsg721 with diff
 %  v1.31(04/05/19) Suppressed creating of wmf as it was causing a Java leak when large numbers of files were processed
 %  v1.4 (11/01/20) Perform HRV using a separate function, add an error trap in exponential fit, minor bug fixes
+%  v1.41(11/05/20) More error traps, partially revised to start to use textscan 
+%                  rather than textread, improved peak detection for Wf2
 %%%%%%%%%%%%%%%%
 %% m files required to be in directory
 % fitres_v6.m
@@ -38,21 +40,41 @@
 % hrv_v1.m
 %%%%%%%%%%%%%%%%
 %% Constants
-    sampling_rate=128;     % from sphygmocor (can be read as spdata{2,21})
+    sampling_rate=128;     % from sphygmocor (can be read as spdata{1,2}{21,2})
                            % but its fixed so just impose as constant (i.e.
-                           % 128Hz (sample interval 7.8ms)) for now
+                           % 128Hz (sample interval 7.8ms)) as it's easier
+                           % to find here
     kres_v='v14';          % Version tracking for reservoir fitting
     headernumber=47;       % headers for columns of results (see end)
     mmHgPa = 133;          % P conversion for WIA
-    uconst=1;              % empirical constant to convert normalized velocity to m/s
+    uconst=1;              % empirical constant to convert normalized 
+                           % velocity to m/s based on Hughes et al. 
+                           % Front. Physiol. DOI: 10.3389/fphys.2020.00550
 
 %%%%%%%%%%%%%%%%
 %% Select files
-% folder_name = uigetdir; % dropped for now as it slows the process
-folder_name ='C:\Spdata\'; % speeds things up
+% default folder as per manual
+folder_name ='C:\Spdata\'; 
+% check that C:\Spdata exists and if not allows new folder to be chosen
+if ~exist('C:\Spdata', 'dir')
+      answer = questdlg('C:\Spdata doesnt exist. Would you like to choose another folder?', ...
+	'Sphygmocor Data Folder','Yes', 'No [end]','Yes');
+% Handle response
+    switch answer
+        case 'Yes'
+            folder_name = uigetdir;
+        case 'No [end]'             % end if no folder identified
+        return
+    end
+end
+% read files 
 file_lists=dir(fullfile(folder_name, '*.txt'));
 no_of_files=length(file_lists);
-
+% add an error trap here if no files in folder
+if no_of_files==0
+    f = errordlg('No data files to analyse in folder','File error');
+    return
+end
 % set record number to 1 and extract filename
 record_no=1;
 % preallocate cell array
@@ -62,17 +84,23 @@ proc_var=cell(no_of_files,headernumber);
 for file_number=1:no_of_files
     % refresh filename
     filename=file_lists(record_no).name;
-    % read BP data from Sphygmocor file
+    % read BP data from Sphygmocor file using textread as it's easier
       [periph_signal,central_signal,periph_pulse,central_pulse,...
           flow_waveform,forward_pulse,reflected_pulse] = textread...
           ([folder_name filename],'%f%f%f%f%f%f%f','headerlines',4);
 
-   % read other data from Sphygmocor file (there are 82 columns)
-      spdata(1,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t');
-      spdata(2,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t', 'headerlines', 1);
+   % read other data from Sphygmocor file (there are 82 columns)into cell
+%       spdata(1,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t');
+%       spdata(2,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t', 'headerlines', 1);
+    % replace with textscan
+    fid = fopen([folder_name filename]);
+    spdata(:,1) = textscan (fid,'%s', 82,'delimiter', '\t');
+    spdata(:,2) = textscan (fid,'%s', 82,'delimiter', '\t', 'headerlines', 1);
+    fclose(fid);
 
     % detect Patient id if present
-    id=spdata{2,8};
+    %id=spdata{2,8};
+    id=spdata{1,2}{8,1};
 
     % open waitbar
     if record_no==1
@@ -85,7 +113,8 @@ for file_number=1:no_of_files
     % call function to fit reservoir to radial data
     [P_av, Pr_av,Pinf_av,Pn_av,Tn_av,Sn_av, fita_av, fitb_av,rsq_av]=fitres_v6(periph_pulse,sampling_rate);
     % calculate mean arterial pressure from waveform
-    map=str2double(spdata{2,32}); % data in file
+    %map=str2double(spdata{2,32}); % data in file
+    map=str2double(spdata{1,2}{32,1}); % data in file
     % duration of diastole
     Tdia=(length(P_av)-Sn_av)/sampling_rate;
 
@@ -93,7 +122,7 @@ for file_number=1:no_of_files
     % make times for plots
     Time=1/sampling_rate*(0:(length(P_av)-1));
     TimeR=1/sampling_rate*(0:(length(Pr_av)-1));  % added to allow for different lengths of p_av and Pr_av due to deletion of upturns
-    T=1/sampling_rate*(0:(length(periph_pulse)-1));
+    %T=1/sampling_rate*(0:(length(periph_pulse)-1));
 
     % Make some calculations using the average data
     P_less_dia=P_av-min(P_av);
@@ -161,17 +190,25 @@ for file_number=1:no_of_files
     %duxs=fsg721(cuxwia);
     duxs=diff(cuxwia);
     di=dp.*duxs;
-    minpeak=max(di)/10;
+    di=di*mmHgPa*length(dp);% units fixed - now in W/m2 per cycle^2
+    minpeak=max(di)/20;             % peaks <5% of Wf1 ignored
     % I've left the warning when there are no peaks for now but if it
     % needs to be suppressed then 'signal:findpeaks:largeMinPeakHeight' is
     % its id
-    [dippks,diplocs,dipw]=findpeaks(di, 'NPeaks',2,'MinPeakHeight',minpeak); % find two dIpositive peaks
-    [dimpks,dimlocs,dimw]=findpeaks(-di, 'NPeaks',1,'MinPeakHeight',0.7*max(-di)); % find one dIpositive peaks
-    di=di*mmHgPa*length(dp);% units fixed - now in W/m2 per cycle^2
+    [~,lsys]=min(dp);
+    lsys=round(lsys);
+    [dippks(1),diplocs(1)]=findpeaks(di(1:lsys), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks
+    [dimpks,dimlocs,dimw]=findpeaks(-di(1:lsys), 'NPeaks',1,'MinPeakHeight',0.7*max(-di)); % find one dI- peaks
+    [dippks(2),diplocs(2)]=findpeaks(fliplr(di(1:lsys)), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks
+    diplocs(2)=lsys-diplocs(2);
+    % check peaks 
+%     figure; hold on; plot(di); plot(diplocs(1),dippks(1),'ko'); 
+%     plot(dimlocs,-dimpks,'ro'); plot(diplocs(2),dippks(2),'ks');
+      
 %     dippks=dippks*mmHgPa*length(dp);
 %     dimpks=dimpks*mmHgPa*length(dp); // correct error
-    dippks=dippks*length(dp).^2;
-    dimpks=dimpks*length(dp).^2;
+%     dippks=dippks*length(dp).^2;
+%     dimpks=dimpks*length(dp).^2;
     dipt=diplocs/sampling_rate;
     dimt=dimlocs/sampling_rate;
     % calculate areas
@@ -179,7 +216,7 @@ for file_number=1:no_of_files
     diparea=1.06447*dippks.*dipw;
     dimarea=1.06447*dimpks.*dimw;
     wri=dimarea/diparea(1);
-    % error trap when W2 is unmeasureable
+    % error trap when Wf2 is unmeasureable
      if length(dippks)==1
         dippks(2)=0;
         dipt(2)=0;
@@ -189,8 +226,7 @@ for file_number=1:no_of_files
     % Estimate c (wavespeed) as k*dP/du where k is empirical constant
     % currently k = 1!
     rhoc=max(Pxs)*mmHgPa/1000; % fixed units (m/s)
-    % more complex model to address non-constant bias ~ WORK IN PROGRESS
-    % TBA
+    
     %% HRV
     %% perform reservoir analysis on peripehral pressure waveform
       [P_all, sdsbp, nbeats, rr_ms,rrS_ms, sdnn_ms, ...
@@ -217,17 +253,19 @@ for file_number=1:no_of_files
         problem=0;
     end
 %% Print figures
-    % Pressure and reservoir
-    T=1/sampling_rate*(0:(length(P_all)-1));        % bit of a fudge since i dont know whether T is needed above but it messes up the plot so I've recalculated it.
+    % Pressure and central reservoir
+    T_all=1/sampling_rate*(0:(length(P_all)-1));        
+    TimeC=(1:length(cP_av))/sampling_rate;
     %clf
-    f1=figure('visible','off');                     % dont display figure
+    figure('visible','off');                     % dont display figure
     subplot(1,2,1); hold on;
-    plot(T,P_all);plot(sysloc/sampling_rate, P_all(sysloc),'ro'); plot(dialoc/sampling_rate, P_all(dialoc),'rs');
+    plot(T_all,P_all);plot(sysloc/sampling_rate, P_all(sysloc),'ro'); 
+    plot(dialoc/sampling_rate, P_all(dialoc),'rs');
     xlabel('Time (s)')
     ylabel('BP (mmHg)')
     box off;
     subplot(1,2,2);
-    plot(Time,P_av,TimeR,Pr_av,'r', TimeR, Pxs,'k');
+    plot(TimeC,cP_av,TimeC,cPr_av,'r', TimeC,cPxs_av,'k');
     xlabel('Time (s)')
     ylabel('BP (mmHg)')
     box off;
@@ -236,9 +274,11 @@ for file_number=1:no_of_files
 
     % WI
       %clf
-    f2=figure('visible','off');                     % dont display figure
-    TimeDI=Time(1:length(di));
-    plot (TimeDI, di);                              % **** to allow for new length
+    figure('visible','off');                     % dont display figure
+    TimeDI=(1:length(di))/sampling_rate;
+    plot (TimeDI, di);  hold on;                             % **** to allow for new length
+    plot(dipt(1),dippks(1),'ko'); 
+    plot(dimt,-dimpks,'ro'); plot(dipt(2),dippks(2),'ks');
     xlabel('Time (s)')
     ylabel('dI (W/m2)')
     box off;
@@ -247,10 +287,10 @@ for file_number=1:no_of_files
     % print ('-dmeta', '-r300' , [figfolder wmffile1]);
     print ('-djpeg', '-r300' , [figfolder jpgfile1]);
     drawnow();                  % added to attempt to stop java leak
+    
     % P, Pf, Pb
     %clf
-    f3=figure('visible','off');                     % dont display figure
-    TimeC=(1:length(cP_av))/sampling_rate;
+    figure('visible','off');                     % dont display figure
     hold on; plot(TimeC, cPf_av,'b', TimeC, cPb_av,'r', TimeC, cP_av-min(cP_av),'k');
     xlabel('Time (s)')
     ylabel('BP (mmHg)')
@@ -260,7 +300,7 @@ for file_number=1:no_of_files
     print ('-djpeg', '-r300' , [figfolder jpgfile2]);
 
     % clear and close figures
-    clear f1 f2 f3
+    % clear f1 f2 f3
     figs =  findobj('type','figure');
     close(figs);
     clear figs;
@@ -318,7 +358,8 @@ for file_number=1:no_of_files
     if record_no==no_of_files
        close(h)
        clear h;
-    else record_no=record_no+1;
+    else
+       record_no=record_no+1;
     end
 end
 
@@ -338,8 +379,7 @@ Results_table=cell2table(proc_var, 'VariableNames',header);
 writetable(Results_table, xlsfile);
 % message at end
 msg=string(no_of_files);
-msg=strcat(msg, " files processed");
-h1 = msgbox(msg, 'Done');
-clear h1
+msg=strcat(msg, " file(s) processed");
+msgbox(msg, 'Done');
 %%%%%%%%%%%%%%%%%%%%
 %% END
