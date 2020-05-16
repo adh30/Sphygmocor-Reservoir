@@ -85,10 +85,20 @@ for file_number=1:no_of_files
     % refresh filename
     filename=file_lists(record_no).name;
     % read BP data from Sphygmocor file using textread as it's easier
-      [periph_signal,central_signal,periph_pulse,central_pulse,...
-          flow_waveform,forward_pulse,reflected_pulse] = textread...
-          ([folder_name filename],'%f%f%f%f%f%f%f','headerlines',4);
+%       [periph_signal,central_signal,periph_pulse,central_pulse,...
+%           flow_waveform,forward_pulse,reflected_pulse] = textread...
+%           ([folder_name filename],'%f%f%f%f%f%f%f','headerlines',4);
 
+    fid = fopen([folder_name filename]);
+    data = textscan(fid,'%f%f%f%f%f%f%f','headerlines',4);
+    fclose(fid);
+    periph_signal=data{1,1};
+    central_signal=data{1,2};
+    periph_pulse=data{1,3};
+    central_pulse=data{1,4};
+    periph_pulse=periph_pulse(~isnan(periph_pulse));     % remove NaNs
+    central_pulse=central_pulse(~isnan(central_pulse));     % remove NaNs
+    
    % read other data from Sphygmocor file (there are 82 columns)into cell
 %       spdata(1,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t');
 %       spdata(2,:) = textread ([folder_name filename],'%s', 82,'delimiter', '\t', 'headerlines', 1);
@@ -263,11 +273,13 @@ for file_number=1:no_of_files
     plot(dialoc/sampling_rate, P_all(dialoc),'rs');
     xlabel('Time (s)')
     ylabel('BP (mmHg)')
+    title('Pulse traces')
     box off;
     subplot(1,2,2);
     plot(TimeC,cP_av,TimeC,cPr_av,'r', TimeC,cPxs_av,'k');
     xlabel('Time (s)')
     ylabel('BP (mmHg)')
+    title('P, Pres, Pxs')
     box off;
     % print ('-dmeta', '-r300' , [figfolder wmffile]);
     print ('-djpeg', '-r300' , [figfolder jpgfile]);
@@ -281,6 +293,7 @@ for file_number=1:no_of_files
     plot(dimt,-dimpks,'ro'); plot(dipt(2),dippks(2),'ks');
     xlabel('Time (s)')
     ylabel('dI (W/m2)')
+    title('Wave intensity with Wf1, Wb, Wf2 identified')
     box off;
     wmffile1 = regexprep(filename,'.txt','w.wmf');
     jpgfile1 = regexprep(filename,'.txt','w.jpg');
@@ -294,6 +307,7 @@ for file_number=1:no_of_files
     hold on; plot(TimeC, cPf_av,'b', TimeC, cPb_av,'r', TimeC, cP_av-min(cP_av),'k');
     xlabel('Time (s)')
     ylabel('BP (mmHg)')
+    title('P, Pf and Pb')
     wmffile2 = regexprep(filename,'.txt','fb.wmf');
     jpgfile2 = regexprep(filename,'.txt','fb.jpg');
     % print ('-dmeta', '-r300' , [figfolder wmffile2]);

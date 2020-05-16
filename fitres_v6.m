@@ -28,7 +28,9 @@ function  [P_av, Pr_av,Pinf_av,Pn_av,Tn_av,Sn_av,fita_av,fitb_av,rsq_av]=fitres_
 % *****NB  peripheral pulse starts at the foot!!!
     p_av=pulse';
     j=find(p_av==0); % gets rid of any zeros which occasionally appear at the end of the trace (probably due to the transfer function-induced shift)   
-    p_av=p_av(1:j(1)-1);
+%     if ~isempty(j)
+%         p_av=p_av(1:j(1)-1);
+%     end
   
 
     % all data

@@ -20,8 +20,8 @@ function  [P_all,sdsbp_mmhg, nbeats, av_rr_ms, av_rrS_ms, sdnn_ms,...
 
 % analyse the whole signal
     p=signal';                  % Non-calibrated pressure trace (calibrate later)
-    j=find(p==0);               % gets rid of any zeros which occasionally appear at the end of the trace (probably due to the transfer function-induced shift)   
-    p=p(1:j(1)-1);
+%     j=find(p==0);               % gets rid of any zeros which occasionally appear at the end of the trace (probably due to the transfer function-induced shift)   
+%     p=p(1:j(1)-1);
     
     
     p_av=pulse';                % calibrated pressure trace
