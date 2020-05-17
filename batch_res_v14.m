@@ -295,7 +295,7 @@ for file_number=1:no_of_files
     plot(dipt(1),dippks(1),'ko'); 
     plot(dimt,-dimpks,'ro'); plot(dipt(2),dippks(2),'ks');
     xlabel('Time (s)')
-    ylabel('dI (W/m2)')
+    ylabel('dI (W/m^2/cycle^2)')
     title('Wave intensity with Wf1, Wb, Wf2 identified')
     box off;
     wmffile1 = regexprep(filename,'.txt','w.wmf');
