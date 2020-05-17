@@ -31,8 +31,8 @@
 %  v1.3 (22/04/19) Added progress bar, replaced fsg721 with diff
 %  v1.31(04/05/19) Suppressed creating of wmf as it was causing a Java leak when large numbers of files were processed
 %  v1.4 (11/01/20) Perform HRV using a separate function, add an error trap in exponential fit, minor bug fixes
-%  v1.41(11/05/20) More error traps, revised to use textscan rather than textread,
-%                  titles for figures, improved peak detection for Wf2
+%  v1.41(11/05/20) More error traps, partially revised to start to use textscan 
+%                  rather than textread, improved peak detection for Wf2
 %%%%%%%%%%%%%%%%
 %% m files required to be in directory
 % fitres_v6.m
@@ -200,17 +200,17 @@ for file_number=1:no_of_files
     %duxs=fsg721(cuxwia);
     duxs=diff(cuxwia);
     di=dp.*duxs;
-    di=di*mmHgPa*length(dp);% units fixed - now in W/m2 per cycle^2
+    di=di*mmHgPa*length(dp);        % units fixed - now in W/m2 per cycle^2
     minpeak=max(di)/20;             % peaks <5% of Wf1 ignored
     % I've left the warning when there are no peaks for now but if it
     % needs to be suppressed then 'signal:findpeaks:largeMinPeakHeight' is
     % its id
-    [~,lsys]=min(dp);
-    lsys=round(lsys);
-    [dippks(1),diplocs(1), dipw(1)]=findpeaks(di(1:lsys), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks
+    [~,lsys]=min(dp);               % restrict analysis to systole
+    lsys=round(lsys)+5;             % round and add 5 samples to give a margin for error for duration of systole
+    [dippks(1),diplocs(1), dipw(1)]=findpeaks(di(1:lsys), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks (Wf1)
     [dimpks,dimlocs,dimw]=findpeaks(-di(1:lsys), 'NPeaks',1,'MinPeakHeight',0.7*max(-di)); % find one dI- peaks
-    [dippks(2),diplocs(2), dipw(2)]=findpeaks(fliplr(di(1:lsys)), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks
-    diplocs(2)=lsys-diplocs(2);
+    [dippks(2),diplocs(2), dipw(2)]=findpeaks(fliplr(di(1:lsys)), 'NPeaks',1,'MinPeakHeight',minpeak); % find 2nd dI+ peaks (Wf2) by flipping the data and running findpeak in the other direction
+    diplocs(2)=lsys-diplocs(2);     % correct location for the flipping
     % check peaks 
 %     figure; hold on; plot(di); plot(diplocs(1),dippks(1),'ko'); 
 %     plot(dimlocs,-dimpks,'ro'); plot(diplocs(2),dippks(2),'ks');
@@ -221,17 +221,20 @@ for file_number=1:no_of_files
 %     dimpks=dimpks*length(dp).^2;
     dipt=diplocs/sampling_rate;
     dimt=dimlocs/sampling_rate;
-    % calculate areas
-    % For a Gaussian curve (assumed) the area is 1.06447*height*width
-    diparea=1.06447*dippks.*dipw;
-    dimarea=1.06447*dimpks.*dimw;
-    wri=dimarea/diparea(1);
-    % error trap when Wf2 is unmeasureable
+    
+    % error trap for when Wf2 is unmeasureable
      if length(dippks)==1
         dippks(2)=0;
         dipt(2)=0;
         diparea(2)=0;
      end
+        
+    % calculate areas
+    % For a Gaussian curve (assumed) the area is 1.06447*height*width
+    diparea=1.06447*dippks.*dipw;
+    dimarea=1.06447*dimpks.*dimw;
+    wri=dimarea/diparea(1);
+  
 
     % Estimate c (wavespeed) as k*dP/du where k is empirical constant
     % currently k = 1!
