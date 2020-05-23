@@ -1,11 +1,11 @@
 # Sphygmocor-reservoir
-Reservoir Analysis using a matlab batch process for multiple Sphygmocor© files
+Reservoir Analysis using a matlab batch process for multiple Sphygmocor© files (bRes_sp)
 
 For background see *Alun Hughes, Kim Parker. The modified arterial reservoir: an update with consideration of asymptotic pressure (P∞) and zero-flow pressure (Pzf). Proceedings of the Institution of Mechanical Engineers, Part H: Journal of Engineering in Medicine in press.* https://doi.org/10.1177/0954411920917557 and Kim Parker's website pages on Reservoir/excess pressure (http://www.bg.ic.ac.uk/research/k.parker/res_press_web/rp_home.html).
 
 I am grateful to my long-term colleague Prof. Kim Parker for his assistance with the development of this program. 
 
-*A previous version of batch_res and kreservoir (v13) may be available on Kim Parker's web page.* **NB that old versions (kreservoir v13) are now outdated and the current version (kreservoir v14) should be used. Henceforth any new versions will be made available here.** 
+*This MATLAB script replaces a previous version called batch_res. Earlier versions of batch_res and kreservoir (v13) may be available on Kim Parker's web page.* **NB that old versions (batch_res_vXX and kreservoir_v13) are now outdated and the current version (bRes_sp and kreservoir v14) should be used. Henceforth any new versions will be made available here.** 
 
 |     Version      |     Date     |    Changes Made                                                                                                                                                                                            | 
 |------------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -15,7 +15,8 @@ I am grateful to my long-term colleague Prof. Kim Parker for his assistance with
 | 1.3              | 17/03/19 | Improved reservoir algorithm to prevent upturn of pressure at end of diastole (early systole) affecting fit. Also improved HRV algorithm; adding data to excel output, fixing some other bugs (now kreservoir v12)        
 | 1.31             | 12/04/19 | Added progress bar, bug fix to figure output (now kreservoir v13)                                                                                                                                                          
 | 1.4              | 11/01/20 | Some restructuring of functions, minor bug fixes (now kreservoir v14)  
-| 1.41             | 11/05/20 | More error traps, revised to use textscan rather than textread, titles for figures improved peak detection for Wf2      
+| 1.41             | 11/05/20 | More error traps, revised to use textscan rather than textread, titles for figures improved peak detection for Wf2  
+| 1.5              | 23/05/20 | Updated scritp to calculate derivatives using 9 frame 3rd order SG filter and renamed program to bRes_sp. 
 
 ## Contents
 
