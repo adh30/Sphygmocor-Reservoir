@@ -38,7 +38,7 @@ I am grateful to my long-term colleague Prof. Kim Parker for his assistance with
 
 ## The script
 
-batch\_res\_v14 runs a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since v10 as listed above. An improved algorithm for fitting the reservoir in diastole has been used since kreservoir v13 -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters. The program assumes that the first element of the pressure P corresponds to the end diastolic pressure in the arterial pressure waveform; i.e. the time of minimum P just before the rapid rise in P during early systole. 
+bRes_sp is a matlab script that calculates reservoir and excess pressure according to the methods described in Davies et al.[1] for Sphygmocor© derived files. A few minor changes have been made since the original description. An improved algorithm for fitting the reservoir in diastole is now used  -- this excludes upstrokes at the end of diastole from the fit (presumed to be due to the next beat). This results in lower values for P∞ and slightly different values for other reservoir parameters. The program assumes that the first element of the pressure P corresponds to the end diastolic pressure in the arterial pressure waveform; i.e. the time of minimum P just before the rapid rise in P during early systole. 
 
 ## Using the script
 
@@ -51,28 +51,13 @@ C:\\XXX\\Matlab\\work\\Reservoir\_batch).
 
 Type into command line:
 
-\>\>batch\_res\_v14
-
-(this is the current version)
+\>\>bRes\_sp
 
 After some time (depending on how many files are analysed the run should complete, returning to command prompt. It will show a progress bar while it is running.
 
 Two new folders should now exist in C:\\Spdata - C:\\Spdata\\figures and C:\\Spdata\\results.
 
-C:\\Spdata\\figures contains figures of the signal (all the uncalibrated data) and the pulse (the calibrated ensemble averaged data) with the reservoir pressure shown. These are saved as \*.jpg and \*.wmf files (the latter being useful for import into Microsoft Word and PowerPoint).These plots are useful for checking quality and any dubious results.
-
-Occasionally, as part of the wave intensity routine, MATLAB will return a warning message:
-
-Warning: Invalid MinPeakHeight. There are no data points greater than MinPeakHeight.
-
-\> In findpeaks\>removePeaksBelowMinPeakHeight (line 516)
-
-In findpeaks (line 147)
-
-In batch\_res\_v13 (line 161)
-
-\- this can safely be ignored, as it indicates that there was no measurable reflection (which is possible). This will be fixed in a 
-later update
+C:\\Spdata\\figures contains figures of the signal (all the uncalibrated data) and the pulse (the calibrated ensemble averaged data) with the reservoir pressure shown. These are saved as \*.jpg files.These plots are useful for checking quality and any dubious results.
 
 C:\\Spdata\\results will contain an excel file (resdata.xls) which will contain all the data for each file with its ID. This can then be imported into Stata (or some other stats program) for further analysis.
 
@@ -86,13 +71,13 @@ The root mean square of successive differences (RMSSD), the standard deviation o
 
 **[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
-If it is assumed that excess pressure (*Pxs*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dPxs*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation.
+If it is assumed that excess pressure (*Pxs*) is proportional to aortic flow velocity (*U*) (essentially a 3-element Windkessel assumption -- see above) then the pattern of aortic wave intensity (*dI*) can be estimated (being proportional to *dP* x *dPxs*). If one of aortic wave speed or *dU* is known then wave intensity can be estimated. If only pressure has been measured this problem cannot be solved without strong assumptions. In this case, it is assumed that peak aortic flow (*dU)* is 1m/s (based on [6]) and doesn't not vary with age, sex etc. While this is not true, it is may prove an acceptable approximation. Further details including preliminary validation can be found in [7]. 
 
 ## Backward and forward pressure 
 
 **[NB THESE MEASURES ARE EXPERIMENTAL FOR SPHYGMOCOR DATA]**
 
-These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (Pb);[7] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[8] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[9] which uses a 3-element Windkessel assumption<sup>[b]</sup> to reconstruct forward and backward pressures.
+These are calculated based on the assumptions that in the aorta reservoir pressure is 2 x backward pressure (Pb);[8] which may be valid if excess pressure is linearly proportional to aortic flow as has been reported in dogs,[9] and total aortic flow equals aortic inflow. This approach probably shares similarities with the ARCSOLVER method,[10] which uses a 3-element Windkessel assumption<sup>[b]</sup> to reconstruct forward and backward pressures.
 
 ## Data dictionary
 
@@ -149,9 +134,10 @@ These are calculated based on the assumptions that in the aorta reservoir pressu
 4. Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. *Front Public Health* 2017; **5**: 258.
 5. van Roon AM, Snieder H, Lefrandt JD, de Geus EJ, Riese H. Parsimonious Correction of Heart Rate Variability for Its Dependency on Heart Rate. *Hypertension* 2016; **68**(5): e63-e5.
 6. Hughes AD, Park C, Ramakrishnan A, Mayet J, Chaturvedi N and Parker KH. Feasibility of Estimation of Aortic Wave Intensity Using Non-invasive Pressure Recordings in the Absence of Flow Velocity in Man. *Front Physiol* 2020; **11**:550. doi: 10.3389/fphys.2020.00550
-7. Westerhof N, Westerhof BE. The reservoir wave paradigm discussion. *J Hypertens* 2015; **33**(3): 458-60.
-8. Wang J, Jr., O\'Brien AB, Shrive NG, Parker KH, Tyberg JV. Time-domain representation of ventricular-arterial coupling as a windkessel and wave system. *Am J Physiol Heart Circ Physiol* 2003; **284**(4): H1358\--68.
-9. Hametner B, Wassertheurer S, Kropf J, et al. Wave reflection quantification based on pressure waveforms alone\--methods, comparison, and clinical covariates. *Comput Meth Prog Bio* 2013; **109**(3): 250-9.
+7. Hughes AD, Park C, Ramakrishnan A, Mayet J, Chaturvedi N, Parker KH. Feasibility of Estimation of Aortic Wave Intensity Using Non-invasive Pressure Recordings in the Absence of Flow Velocity in Man. Front Physiol 2020; **11**: in press.
+8. Westerhof N, Westerhof BE. The reservoir wave paradigm discussion. *J Hypertens* 2015; **33**(3): 458-60.
+9. Wang J, Jr., O\'Brien AB, Shrive NG, Parker KH, Tyberg JV. Time-domain representation of ventricular-arterial coupling as a windkessel and wave system. *Am J Physiol Heart Circ Physiol* 2003; **284**(4): H1358\--68.
+10. Hametner B, Wassertheurer S, Kropf J, et al. Wave reflection quantification based on pressure waveforms alone\--methods, comparison, and clinical covariates. *Comput Meth Prog Bio* 2013; **109**(3): 250-9.
 
 ## Footnotes
 
