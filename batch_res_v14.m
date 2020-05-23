@@ -50,6 +50,7 @@
     uconst=1;              % empirical constant to convert normalized 
                            % velocity to m/s based on Hughes et al. 
                            % Front. Physiol. DOI: 10.3389/fphys.2020.00550
+    version = '1.41';      % Version number
 
 %%%%%%%%%%%%%%%%
 %% Select files
@@ -180,7 +181,11 @@ for file_number=1:no_of_files
     RI=max(cPb_av)/(max(cPf_av)+ max(cPb_av));
 
     %% wave intensity analysis (currently only done on central P)
-    % tweak the pressure waveforms cP_av and cPxs_Av for the derivatives to work
+    % tweak the pressure waveforms cP_av and cPxs_Av to make the wave
+    % intensity plot look normal (Sphygmocor data starts at the foot 
+    % or sometimes earlier!) - so, there isnt much 'lead in' on the wave 
+    % intensity if this isnt done, but it occasionaly creates a bit of a 
+    % hiccup at the start. 
     cpwia = zeros(1,length(cP_av));
     cpwia(1:11)=cP_av(end-10:end);
     cpwia(12:end)=cP_av(1:end-11);
@@ -200,7 +205,7 @@ for file_number=1:no_of_files
     %duxs=fsg721(cuxwia);
     duxs=diff(cuxwia);
     di=dp.*duxs;
-    di=di*mmHgPa*length(dp);        % units fixed - now in W/m2 per cycle^2
+    di=di*length(dp)^2;             % units fixed - now in W/m2 per cycle^2
     minpeak=max(di)/20;             % peaks <5% of Wf1 ignored
     % I've left the warning when there are no peaks for now but if it
     % needs to be suppressed then 'signal:findpeaks:largeMinPeakHeight' is
@@ -369,7 +374,7 @@ for file_number=1:no_of_files
     proc_var{record_no,44}=wri;             % WRI
     proc_var{record_no,45}=rhoc;            % rhoc
     proc_var{record_no,46}=id;              % id
-    proc_var{record_no,47}=id_2;            % alternative id from filename - sometimes useful
+    proc_var{record_no,47}=version;         % batch_res_version
 
     % increment record number
     if record_no==no_of_files
@@ -389,7 +394,7 @@ header = {'re_file' 're_maxp' 're_tmaxp' 're_minp'	're_intpr' 're_maxpr'...
     're_sdsbp_mmhg' 're_rr_interval' 're_rmssd' 're_sdnn', 're_rrS_interval'...
     're_sysrmssd' 're_syssdnn','re_brs' 're_beats' ...
     're_cbrs' 're_cbeats' 're_pb_pf', 're_ri', 're_wf1i', 're_wf1t','re_wf1a','re_wbi', ...
-    're_wbt','re_wba','re_wf2i', 're_wf2t','re_wf2a', 're_wri', 're_rhoc', 'id','id2'}; % header
+    're_wbt','re_wba','re_wf2i', 're_wf2t','re_wf2a', 're_wri', 're_rhoc', 'id','version'}; % header
 
 % writetable
 Results_table=cell2table(proc_var, 'VariableNames',header);
