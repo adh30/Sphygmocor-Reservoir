@@ -240,18 +240,17 @@ for file_number=1:no_of_files
     dimarea=1.06447*dimpks.*dimw;
     wri=dimarea/diparea(1);
   
-
     % Estimate c (wavespeed) as k*dP/du where k is empirical constant
     % currently k = 1!
     rhoc=max(Pxs)*mmHgPa/1000; % fixed units (m/s)
     
     %% HRV
-    %% perform reservoir analysis on peripehral pressure waveform
+    %% perform HRV analysis on peripehral pressure waveform
       [P_all, sdsbp, nbeats, rr_ms,rrS_ms, sdnn_ms, ...
         sdnnS_ms, rmssd_ms, rmssdS_ms, brs_ms_mmhg,sysloc,dialoc]...
         =hrv_v1(periph_pulse,central_signal,sampling_rate);
 
-    % perform reservoir analysis on central pressure waveform
+    % perform HRV analysis on central pressure waveform
       [cP_all, csdsbp, cnbeats, crr_ms,crrS_ms, csdnn_ms, ...
         csdnnS_ms, crmssd_ms, crmssdS_ms, cbrs_ms_mmhg,csysloc, cdialoc]...
         =hrv_v1(central_pulse,central_signal,sampling_rate);
