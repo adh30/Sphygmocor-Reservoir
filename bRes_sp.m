@@ -34,7 +34,8 @@
 %  v1.41(11/05/20) More error traps, partially revised to start to use textscan 
 %                  rather than textread, improved peak detection for Wf2
 %  v1.5 (23/05/20) Updated derivative to use 9 frame 3rd order SG filter
-%                  and renamed program to bRes_sp. 
+%                  and renamed program to bRes_sp.
+%  V1.6 (25/03/21) Fixed an occasional bug with findpeaks component
 %%%%%%%%%%%%%%%%
 %% m files required to be in directory
 % fitres_v6.m
@@ -54,7 +55,7 @@
                            % Front. Physiol. DOI: 10.3389/fphys.2020.00550
     Npoly=3;               % Order of polynomial fit for sgolay
     Frame=9;               % Window length for sgolay
-    version='1.5';         % Version of bRes_sp
+    version='1.6';         % Version of bRes_sp
 %%%%%%%%%%%%%%%%
 %% Select files
 % default folder as per manual
@@ -217,14 +218,23 @@ for file_number=1:no_of_files
     
     di=dp.*duxs;
     di=di*length(dp)^2;             % units fixed - now in W/m2 per cycle^2
-    minpeak=max(di)/20;             % peaks <5% of Wf1 ignored
+    minpeak=max(di)/20;             % peaks <5% of Wf1 ignored for Wf2
     % I've left the warning when there are no peaks for now but if it
     % needs to be suppressed then 'signal:findpeaks:largeMinPeakHeight' is
     % its id
-    [~,lsys]=min(dp);               % restrict analysis to systole
+    % We need to identify time of peak pressure as occasionally peak -dp is
+    % before start of systole
+    [~,TcPmax]=max(cP_av);                     % identify time of peak P 
+    [~,lsys]=min(dp(TcPmax:end));               % restrict analysis to systole after peak P 
     lsys=round(lsys)+5;             % round and add 5 samples to give a margin for error for duration of systole
-    [dippks(1),diplocs(1), dipw(1)]=findpeaks(di(1:lsys), 'NPeaks',1,'MinPeakHeight',minpeak); % find 1st dI+ peaks (Wf1)
-    [dimpks,dimlocs,dimw]=findpeaks(-di(1:lsys), 'NPeaks',1,'MinPeakHeight',0.7*max(-di)); % find one dI- peaks
+    [dippks(1),diplocs(1), dipw(1)]=findpeaks(di(1:lsys), 'NPeaks',1,'MinPeakHeight',0.7*max(di)); % find 1st dI+ peaks (Wf1)
+    [dimpks,dimlocs,dimw]=findpeaks(-di(diplocs(1):lsys), 'NPeaks',1,'MinPeakHeight',0.7*max(-di(diplocs(1):lsys))); % find one dI- peaks
+    % error trap
+    [warnmsg, msgid] = lastwarn;
+    if strcmp(msgid,'Warning: Invalid MinPeakHeight. There are no data points greater than MinPeakHeight.')
+        disp(id);
+    end
+       
     % to find Wf2 flip the di in systole and find peak.
     [dippks(2),diplocs(2), dipw(2)]=findpeaks(flipud(di(1:lsys)), 'NPeaks',1,'MinPeakHeight',minpeak); % find 2nd dI+ peaks (Wf2) by flipping the data and running findpeak in the other direction
     diplocs(2)=lsys-diplocs(2)+1;     % correct location for the flipping
