@@ -35,7 +35,7 @@
 %                  rather than textread, improved peak detection for Wf2
 %  v1.5 (23/05/20) Updated derivative to use 9 frame 3rd order SG filter
 %                  and renamed program to bRes_sp.
-%  V1.6 (25/03/21) Fixed an occasional bug with findpeaks component
+%  V1.6 (25/03/21) Fixed a couple of bugs with findpeaks component
 %%%%%%%%%%%%%%%%
 %% m files required to be in directory
 % fitres_v6.m
