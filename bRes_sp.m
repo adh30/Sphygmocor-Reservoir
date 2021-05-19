@@ -1,4 +1,4 @@
-%% batch_res_v14 - batch analysis of radial pulse data using kreservoir_v14
+%% batch_res_v14 - batch analysis of radial pulse data acquired with a Sphygmocor device (using kreservoir_v14)
 %% Copyright 2020 Alun Hughes & Kim Parker
 % This software is distributed under under the terms of the GNU General Public License
 % This program is free software: you can redistribute it and/or modify
@@ -89,11 +89,6 @@ proc_var=cell(no_of_files,headernumber);
 for file_number=1:no_of_files
     % refresh filename
     filename=file_lists(record_no).name;
-    % read BP data from Sphygmocor file using textread as it's easier
-%       [periph_signal,central_signal,periph_pulse,central_pulse,...
-%           flow_waveform,forward_pulse,reflected_pulse] = textread...
-%           ([folder_name filename],'%f%f%f%f%f%f%f','headerlines',4);
-
     fid = fopen([folder_name filename]);
     data = textscan(fid,'%f%f%f%f%f%f%f','headerlines',4);
     fclose(fid);
