@@ -48,7 +48,7 @@
                            % 128Hz (sample interval 7.8ms)) as it's easier
                            % to find here
     kres_v='v14';          % Version tracking for reservoir fitting
-    headernumber=47;       % headers for columns of results (see end)
+    headernumber=48;       % headers for columns of results (see end)
     mmHgPa = 133;          % P conversion for WIA
     uconst=1;              % empirical constant to convert normalized 
                            % velocity to m/s based on Hughes et al. 
@@ -96,7 +96,7 @@ for file_number=1:no_of_files
     central_signal=data{1,2};
     periph_pulse=data{1,3};
     central_pulse=data{1,4};
-    periph_pulse=periph_pulse(~isnan(periph_pulse));     % remove NaNs
+    periph_pulse=periph_pulse(~isnan(periph_pulse));        % remove NaNs
     central_pulse=central_pulse(~isnan(central_pulse));     % remove NaNs
     
    % read other data from Sphygmocor file (there are 82 columns)into cell
@@ -111,6 +111,8 @@ for file_number=1:no_of_files
     % detect Patient id if present
     %id=spdata{2,8};
     id=spdata{1,2}{8,1};
+    % AIx
+    ao_ai=spdata{1,2}{66,1};
 
     % open waitbar
     if record_no==1
@@ -387,6 +389,7 @@ for file_number=1:no_of_files
     proc_var{record_no,45}=rhoc;            % rhoc
     proc_var{record_no,46}=id;              % id
     proc_var{record_no,47}=version;         % version of bRes_sp software
+    proc_var{record_no,48}=ao_ai;           % Aortic AIx
 
     % increment record number
     if record_no==no_of_files
@@ -406,7 +409,7 @@ header = {'re_file' 're_maxp' 're_tmaxp' 're_minp'	're_intpr' 're_maxpr'...
     're_sdsbp_mmhg' 're_rr_interval' 're_rmssd' 're_sdnn', 're_rrS_interval'...
     're_sysrmssd' 're_syssdnn','re_brs' 're_beats' ...
     're_cbrs' 're_cbeats' 're_pb_pf', 're_ri', 're_wf1i', 're_wf1t','re_wf1a','re_wbi', ...
-    're_wbt','re_wba','re_wf2i', 're_wf2t','re_wf2a', 're_wri', 're_rhoc', 'id','version'}; % header
+    're_wbt','re_wba','re_wf2i', 're_wf2t','re_wf2a', 're_wri', 're_rhoc', 'id','version', 'ao_ai'}; % header
 
 % writetable
 Results_table=cell2table(proc_var, 'VariableNames',header);
