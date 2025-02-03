@@ -14,6 +14,8 @@
 
 %% Versions
 % v1 First stable version(11/01/20)
+% v1.1 Fixed Warning: Colon operands must be real scalars. This warning will become an error
+% in a future release. 
 %%
 function  [P_all,sdsbp_mmhg, nbeats, av_rr_ms, av_rrS_ms, sdnn_ms,...
     sdnnS_ms, rmssd_ms, rmssdS_ms, brs_ms_mmhg,sysloc, dialoc]=hrv_v1(pulse,signal,sampling_rate) 
@@ -84,19 +86,27 @@ function  [P_all,sdsbp_mmhg, nbeats, av_rr_ms, av_rrS_ms, sdnn_ms,...
     end
     signsp=signdr.*signds;
     seq=[1 1 1];
-    if length(signsp)<3             % fix bug if less than 3 in sequence
-        brs_ms_mmhg=nan;
-    else
-        posseq=findstr(signsp,seq);
-        negseq=findstr(-signsp,seq);
-        if ~isempty(posseq)
-            coeff=polyfit(abs(diffsbp(posseq:posseq+2)),abs(diffrr(posseq:posseq+2)), 1);
-            brs_ms_mmhg=abs(coeff(1));
-        elseif ~isempty(negseq)
-            coeff=polyfit(abs(diffsbp(negseq:negseq+2)),abs(diffrr(negseq:negseq+2)), 1);
-            brs_ms_mmhg=abs(coeff(1));
-        else
-            brs_ms_mmhg=nan;
+% Function to calculate baroreflex sensitivity (BRS) in ms/mmHg
+if length(signsp) < 3  % Ensure there are at least 3 elements in the sequence
+    brs_ms_mmhg = NaN;
+else
+    % Find indices of positive and negative sequences
+    posseq = strfind(signsp, seq);
+    negseq = strfind(-signsp, seq);
+    
+    % Initialize BRS value
+    brs_ms_mmhg = NaN;
+    
+    % Check for positive sequence match
+    if ~isempty(posseq)
+        % Compute regression coefficient for positive sequence
+        indices = posseq(1):(posseq(1) + 2); % Only consider the first match
+        coeff = polyfit(abs(diffsbp(indices)), abs(diffrr(indices)), 1);
+        brs_ms_mmhg = abs(coeff(1));
+    elseif ~isempty(negseq)
+        % Compute regression coefficient for negative sequence
+        indices = negseq(1):(negseq(1) + 2); % Only consider the first match
+        coeff = polyfit(abs(diffsbp(indices)), abs(diffrr(indices)), 1);
+        brs_ms_mmhg = abs(coeff(1));
     end
-   end
-  end
+end

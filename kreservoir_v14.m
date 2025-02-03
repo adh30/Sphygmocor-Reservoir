@@ -149,7 +149,19 @@ np=[2:Nd Nd];
 prend=pr(nn:end);
 k=find((prend-prd).*(prend(np)-prd(np))<=0);
 prr=pr;
-prr(nn+k:end)=prd(k+1:end);
+% % Warning: Colon operands must be real scalars. This warning will become an
+% % error in a future release. - this affects the line below. Need to re-write
+% % prr(nn+k:end)=prd(k+1:end); 
+% for i = 1:length(k)
+%     prr(nn+k(i):end)=prd(k(i)+1:end); 
+% end
+
+% Create an index vector for all the slices
+index_start = nn + k;  % The starting indices for each slice of prr
+index_end = length(prd);  % The end index is always the same
+
+% Directly assign values to prr using these indices
+prr(index_start(:)) = prd(k(:) + 1);
 
 % return variables
 Pr=prr;

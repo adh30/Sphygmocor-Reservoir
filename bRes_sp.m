@@ -35,7 +35,9 @@
 %                  rather than textread, improved peak detection for Wf2
 %  v1.5 (23/05/20) Updated derivative to use 9 frame 3rd order SG filter
 %                  and renamed program to bRes_sp.
-%  V1.6 (25/03/21) Fixed a couple of bugs with findpeaks component
+%  v1.6 (25/03/21) Fixed a couple of bugs with findpeaks component
+%  v1.7 (16/01/25) Changed maximum peak to mean peak velocity for pressure-only
+%                  calculations. Improved error reporting TBA. 
 %%%%%%%%%%%%%%%%
 %% m files required to be in directory
 % fitres_v6.m
@@ -50,19 +52,21 @@
     kres_v='v14';          % Version tracking for reservoir fitting
     headernumber=48;       % headers for columns of results (see end)
     mmHgPa = 133;          % P conversion for WIA
-    uconst=1;              % empirical constant to convert normalized 
+    uconst=0.6;            % empirical constant to convert normalized 
                            % velocity to m/s based on Hughes et al. 
                            % Front. Physiol. DOI: 10.3389/fphys.2020.00550
+                           % ** NOW 0.6 so that it's mean peak not maximum
+                           % peak i.e. profile average. 
     Npoly=3;               % Order of polynomial fit for sgolay
     Frame=9;               % Window length for sgolay
-    version='1.6';         % Version of bRes_sp
+    version='1.7';         % Version of bRes_sp
 %%%%%%%%%%%%%%%%
 %% Select files
 % default folder as per manual
-folder_name ='C:\Spdata\'; 
-% check that C:\Spdata exists and if not allows new folder to be chosen
-if ~exist('C:\Spdata', 'dir')
-      answer = questdlg('C:\Spdata doesnt exist. Would you like to choose another folder?', ...
+folder_name ='D:\Spdata\'; 
+% check that folder_name exists and if not allow new folder to be chosen
+if ~exist('D:\Spdata', 'dir')
+      answer = questdlg('D:\Spdata doesnt exist. Would you like to choose another folder?', ...
 	'Sphygmocor Data Folder','Yes', 'No [end]','Yes');
 % Handle response
     switch answer
@@ -149,9 +153,9 @@ for file_number=1:no_of_files
 
 
     %% make figures and data subfolders
-    figfolder='C:\Spdata\figures\';
-    datafolder='C:\Spdata\results\';
-    if ~exist(figfolder, 'dir')
+    figfolder=folder_name + "figures\";
+    datafolder=folder_name + "results\";
+    if ~exist(figfolder, 'dir')                 
     mkdir(figfolder);
     end
     if ~exist(datafolder, 'dir')
@@ -243,7 +247,7 @@ for file_number=1:no_of_files
     
     % error trap for when Wf2 is unmeasureable - with new routine this may
     % be unecessary
-     if length(dippks)==1
+     if isscalar(dippks) % if length(dippks)==1
         dippks(2)=0;
         dipt(2)=0;
         diparea(2)=0;
@@ -257,7 +261,7 @@ for file_number=1:no_of_files
   
     % Estimate c (wavespeed) as k*dP/du where k is empirical constant
     % currently k = 1!
-    rhoc=max(Pxs)*mmHgPa/1000; % fixed units (m/s)
+    rhoc=max(Pxs)/uconst*mmHgPa/1000; % fixed units (m/s) % added uconst
     
     %% HRV
     %% perform HRV analysis on peripehral pressure waveform
@@ -304,13 +308,13 @@ for file_number=1:no_of_files
     title('P, Pres, Pxs')
     box off;
     % print ('-dmeta', '-r300' , [figfolder wmffile]);
-    print ('-djpeg', '-r300' , [figfolder jpgfile]);
+    print ('-djpeg', '-r300' , [figfolder + jpgfile]);
 
     % WI
       %clf
     figure('visible','off');                     % dont display figure
     TimeDI=(1:length(di))/sampling_rate;
-    plot (TimeDI, di);  hold on;                             % **** to allow for new length
+    plot (TimeDI, di);  hold on;                 % **** to allow for new length
     plot(dipt(1),dippks(1),'ko'); 
     plot(dimt,-dimpks,'ro'); plot(dipt(2),dippks(2),'ks');
     xlabel('Time (s)')
@@ -320,8 +324,8 @@ for file_number=1:no_of_files
     wmffile1 = regexprep(filename,'.txt','w.wmf');
     jpgfile1 = regexprep(filename,'.txt','w.jpg');
     % print ('-dmeta', '-r300' , [figfolder wmffile1]);
-    print ('-djpeg', '-r300' , [figfolder jpgfile1]);
-    drawnow();                  % added to attempt to stop java leak
+    print ('-djpeg', '-r300' , [figfolder + jpgfile1]);
+    % drawnow();                  % added to attempt to stop java leak
     
     % P, Pf, Pb
     %clf
@@ -333,7 +337,7 @@ for file_number=1:no_of_files
     wmffile2 = regexprep(filename,'.txt','fb.wmf');
     jpgfile2 = regexprep(filename,'.txt','fb.jpg');
     % print ('-dmeta', '-r300' , [figfolder wmffile2]);
-    print ('-djpeg', '-r300' , [figfolder jpgfile2]);
+    print ('-djpeg', '-r300' , [figfolder + jpgfile2]);
 
     % clear and close figures
     % clear f1 f2 f3
@@ -401,7 +405,7 @@ for file_number=1:no_of_files
 end
 
 %% Save the results as an excel spreadheet
-xlsfile='C:\Spdata\results\resdata.xls';
+xlsfile=datafolder + "resdata.xls";
 header = {'re_file' 're_maxp' 're_tmaxp' 're_minp'	're_intpr' 're_maxpr'...
     're_tmaxpr'	're_intprlessdias' 're_maxprlessdias' 're_sam_rate'...
     're_intxsp'	're_maxxsp'	're_tmaxxsp' 're_tn' 're_pinf' 're_pn'...
